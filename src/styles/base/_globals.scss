@@ -1,0 +1,42 @@
+@use "../abstracts/variables" as *;
+
+:root {
+  font-family: $font-display;
+  color: $color-text;
+  background:
+    radial-gradient(circle at top left, rgba(255, 143, 107, 0.35), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(244, 185, 66, 0.2), transparent 24%),
+    $color-bg;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+.app-header__eyebrow,
+.section-label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.app-header__eyebrow {
+  margin-bottom: 10px;
+  color: $color-muted;
+}
+
+.section-label {
+  color: $color-accent;
+}
+
+.muted-text,
+.property-card__location,
+.property-card__description,
+.deck-section__empty {
+  color: $color-muted;
+}

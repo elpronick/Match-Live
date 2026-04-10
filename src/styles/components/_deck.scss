@@ -1,0 +1,39 @@
+@use "../abstracts/variables" as *;
+
+.deck-section {
+  display: grid;
+  gap: 22px;
+}
+
+.deck-section__stack {
+  min-height: 720px;
+}
+
+.deck-section__empty {
+  display: grid;
+  place-items: center;
+  min-height: 520px;
+  padding: 32px;
+  text-align: center;
+  border: 1px dashed $color-border;
+  border-radius: $radius-xl;
+  background: rgba(255, 255, 255, 0.55);
+
+  h2 {
+    margin: 12px 0 8px;
+    color: $color-text;
+  }
+}
+
+.swipe-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+@media (max-width: $bp-tablet) {
+  .deck-section__stack {
+    min-height: 0;
+  }
+}

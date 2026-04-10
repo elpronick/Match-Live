@@ -1,0 +1,93 @@
+@use "../abstracts/variables" as *;
+
+.property-card {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: $radius-lg;
+  background: $color-surface-strong;
+  box-shadow: $shadow-card;
+}
+
+.property-card__media {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  min-height: 360px;
+  padding: 24px;
+  background:
+    linear-gradient(180deg, rgba(24, 16, 11, 0.04), rgba(24, 16, 11, 0.38)),
+    var(--card-image, linear-gradient(135deg, #d7c3b7, #f3e3d7));
+  background-size: cover;
+  background-position: center;
+}
+
+.property-card__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: $color-surface-strong;
+  background: rgba(24, 16, 11, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+.property-card__body {
+  display: grid;
+  gap: 20px;
+  padding: 24px;
+}
+
+.property-card__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.property-card__location {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.property-card__title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.property-card__price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.property-card__description {
+  line-height: 1.6;
+}
+
+.property-card__meta,
+.property-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.property-card__meta li,
+.property-card__chips span {
+  padding: 10px 14px;
+  background: #f7f3ef;
+}
+
+.property-card__chips span {
+  color: $color-success;
+  background: $color-success-soft;
+}
+
+@media (max-width: $bp-mobile) {
+  .property-card__media {
+    min-height: 300px;
+  }
+
+  .property-card__heading {
+    flex-direction: column;
+  }
+}

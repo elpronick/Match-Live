@@ -1,0 +1,38 @@
+@use "../abstracts/variables" as *;
+
+.filters-panel {
+  display: grid;
+  gap: 22px;
+  padding: 28px;
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+  background: $color-surface;
+  box-shadow: $shadow-soft;
+  backdrop-filter: blur(18px);
+
+  h2 {
+    margin: 8px 0 10px;
+    font-size: 1.8rem;
+  }
+}
+
+.filters-panel__chips,
+.filters-panel__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.stat-card {
+  flex: 1 1 180px;
+  padding: 16px 18px;
+  border-radius: $radius-md;
+  background: rgba(255, 255, 255, 0.72);
+
+  span {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: $color-muted;
+  }
+}

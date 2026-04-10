@@ -1,0 +1,56 @@
+@use "../abstracts/variables" as *;
+
+.ghost-button,
+.chip,
+.swipe-button,
+.property-card__meta li,
+.property-card__chips span,
+.property-card__tag {
+  border-radius: $radius-pill;
+}
+
+.ghost-button {
+  padding: 14px 22px;
+  border: 1px solid $color-border;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+.chip {
+  padding: 10px 16px;
+  color: $color-muted;
+  background: rgba(255, 255, 255, 0.8);
+
+  &.is-active {
+    color: $color-surface-strong;
+    background: $color-text;
+  }
+}
+
+.swipe-button {
+  min-width: 118px;
+  padding: 16px 20px;
+  font-weight: 700;
+  box-shadow: $shadow-soft;
+
+  &--reject {
+    color: #a74f35;
+    background: #fff1ec;
+  }
+
+  &--save {
+    color: #8a6511;
+    background: #fff6db;
+  }
+
+  &--like {
+    color: #0c7655;
+    background: #daf6ec;
+  }
+}
+
+@media (max-width: $bp-mobile) {
+  .swipe-button {
+    flex: 1 1 140px;
+  }
+}

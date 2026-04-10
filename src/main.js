@@ -1,4 +1,4 @@
-import './style.css'
+import './styles/main.scss'
 import { properties } from './data/properties.js'
 import { createSwipeController } from './modules/swipeController.js'
 

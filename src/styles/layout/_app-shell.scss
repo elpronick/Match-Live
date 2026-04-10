@@ -1,0 +1,45 @@
+@use "../abstracts/variables" as *;
+
+.app-shell {
+  width: min(1200px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+
+  h1 {
+    max-width: 12ch;
+    font-size: clamp(2.4rem, 4vw, 4.5rem);
+    line-height: 0.96;
+  }
+}
+
+.home-view {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: $bp-tablet) {
+  .home-view {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: $bp-mobile) {
+  .app-shell {
+    width: min(100% - 20px, 100%);
+    padding-top: 20px;
+  }
+
+  .app-header {
+    flex-direction: column;
+  }
+}
