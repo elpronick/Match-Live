@@ -18,3 +18,7 @@ La idea es aprender paso a paso con una estructura sencilla ahora, pero dejando 
 - `npm run dev`: arranca el servidor de desarrollo
 - `npm run build`: genera la version de produccion
 - `npm run preview`: previsualiza la build final
+
+## Deploy
+
+GitHub Pages publica la carpeta `dist` mediante el workflow [deploy-pages.yml](C:/Users/usu/Documents/Proyectos%20CSS/Match-Live/.github/workflows/deploy-pages.yml) cada vez que haces push a `main`.
