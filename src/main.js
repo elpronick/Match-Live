@@ -33,7 +33,7 @@ document.querySelector('#app').innerHTML = `
         <div class="filters-panel__stats">
           <article class="stat-card">
             <span>Presupuesto</span>
-            <strong>Hasta 450 EUR</strong>
+            <strong>Hasta 600 EUR</strong>
           </article>
           <article class="stat-card">
             <span>Interesados</span>
