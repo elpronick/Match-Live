@@ -3,7 +3,7 @@ export const properties = [
     id: 1,
     title: "Habitación luminosa en piso compartido",
     location: "Malasaña, Madrid",
-    price: "420 EUR/mes",
+    price: "460 EUR/mes",
     tag: "Top match estudiantes",
     description:
       "Habitación exterior con escritorio, armario grande y muy buen rollo en casa. Ideal para estudiantes o gente joven que quiere vivir cerca del centro.",
@@ -16,7 +16,7 @@ export const properties = [
     id: 2,
     title: "Habitación para estudiantes",
     location: "Ruzafa, Valencia",
-    price: "390 EUR/mes",
+    price: "435 EUR/mes",
     tag: "Nuevo hoy",
     description:
       "Habitación cómoda en piso reformado con salón amplio, balcón y compis entre 24 y 29 años. Perfecta si trabajas en remoto o estudias y buscas zona con vida.",
@@ -35,14 +35,14 @@ export const properties = [
       "Habitación acogedora en piso compartido con gente internacional. Casa tranquila entre semana, planazos el finde y muy bien conectada con universidad y playa.",
     image:
       "linear-gradient(135deg, rgba(16, 44, 58, 0.14), rgba(16, 44, 58, 0.34)), url('https://images.pexels.com/photos/27683999/pexels-photo-27683999.jpeg')",
-    meta: ["5 compis", "2 banos", "Contrato flexible"],
+    meta: ["5 compis", "2 baños", "Contrato flexible"],
     perks: ["Ambiente internacional", "Cerca del mar", "Zona universitaria"],
   },
   {
     id: 4,
     title: "Habitación tranquila con vibe creativa",
     location: "Triana, Sevilla",
-    price: "630 EUR/mes",
+    price: "525 EUR/mes",
     tag: "Muy guardada",
     description:
       "Habitación con cama doble, ventana grande y piso compartido con dos chicas y un chico. Buen equilibrio entre estudio, curro y planes de terraza.",

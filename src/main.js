@@ -46,14 +46,24 @@ document.querySelector('#app').innerHTML = `
         <div class="deck-section__stack" id="card-stack"></div>
 
         <div class="swipe-actions">
-          <button class="swipe-button swipe-button--reject" id="reject-btn" type="button">
-            Pasar
+          <button
+            class="swipe-button swipe-button--reject swipe-button--icon"
+            id="back-btn"
+            type="button"
+            aria-label="Volver a la habitacion anterior"
+          >
+            <span aria-hidden="true">←</span>
           </button>
           <button class="swipe-button swipe-button--save" id="save-btn" type="button">
             Guardar
           </button>
-          <button class="swipe-button swipe-button--like" id="like-btn" type="button">
-            Match
+          <button
+            class="swipe-button swipe-button--like swipe-button--icon"
+            id="next-btn"
+            type="button"
+            aria-label="Ir a la siguiente habitacion"
+          >
+            <span aria-hidden="true">→</span>
           </button>
         </div>
       </section>
@@ -61,19 +71,35 @@ document.querySelector('#app').innerHTML = `
   </div>
 `
 
+const backButton = document.querySelector('#back-btn')
+const saveButton = document.querySelector('#save-btn')
+const nextButton = document.querySelector('#next-btn')
+
 const swipeController = createSwipeController({
   properties,
   stackElement: document.querySelector('#card-stack'),
 })
 
-document
-  .querySelector('#reject-btn')
-  .addEventListener('click', () => swipeController.swipe('reject'))
+function syncActionButtons() {
+  const { canGoBack, canGoNext } = swipeController.getState()
 
-document
-  .querySelector('#save-btn')
-  .addEventListener('click', () => swipeController.swipe('save'))
+  backButton.disabled = !canGoBack
+  nextButton.disabled = !canGoNext
+}
 
-document
-  .querySelector('#like-btn')
-  .addEventListener('click', () => swipeController.swipe('like'))
+backButton.addEventListener('click', () => {
+  swipeController.goBack()
+  syncActionButtons()
+})
+
+saveButton.addEventListener('click', () => {
+  swipeController.swipe('save')
+  syncActionButtons()
+})
+
+nextButton.addEventListener('click', () => {
+  swipeController.goNext()
+  syncActionButtons()
+})
+
+syncActionButtons()

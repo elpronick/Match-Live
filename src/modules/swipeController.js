@@ -3,6 +3,15 @@ import { renderPropertyCard } from './renderPropertyCard.js'
 export function createSwipeController({ properties, stackElement }) {
   let currentIndex = 0
 
+  function getState() {
+    return {
+      currentIndex,
+      total: properties.length,
+      canGoBack: currentIndex > 0,
+      canGoNext: currentIndex < properties.length - 1,
+    }
+  }
+
   function renderEmptyState() {
     stackElement.innerHTML = `
       <div class="deck-section__empty">
@@ -30,11 +39,38 @@ export function createSwipeController({ properties, stackElement }) {
     }
 
     stackElement.dataset.lastAction = action
+    if (currentIndex < properties.length - 1) {
+      currentIndex += 1
+    }
+    renderCurrentCard()
+  }
+
+  function goNext() {
+    if (currentIndex >= properties.length - 1) {
+      return
+    }
+
+    stackElement.dataset.lastAction = 'next'
     currentIndex += 1
+    renderCurrentCard()
+  }
+
+  function goBack() {
+    if (currentIndex <= 0) {
+      return
+    }
+
+    stackElement.dataset.lastAction = 'back'
+    currentIndex -= 1
     renderCurrentCard()
   }
 
   renderCurrentCard()
 
-  return { swipe }
+  return {
+    getState,
+    goBack,
+    goNext,
+    swipe,
+  }
 }
