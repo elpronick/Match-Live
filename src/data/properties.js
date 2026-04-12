@@ -27,7 +27,7 @@ export const properties = [
   },
   {
     id: 3,
-    title: "Habitación cerca de la playa y universidades",
+    title: "Habitación (playa/universidad)",
     location: "Poblenou, Barcelona",
     price: "600 EUR/mes",
     tag: "Ideal Erasmus",
@@ -36,7 +36,7 @@ export const properties = [
     image:
       "linear-gradient(135deg, rgba(16, 44, 58, 0.14), rgba(16, 44, 58, 0.34)), url('https://images.pexels.com/photos/27683999/pexels-photo-27683999.jpeg')",
     meta: ["5 compis", "2 baños", "Contrato flexible"],
-    perks: ["Ambiente internacional", "Cerca del mar", "Zona universitaria"],
+    perks: ["Cerca del mar", "Zona universitaria"],
   },
   {
     id: 4,
