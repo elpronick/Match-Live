@@ -8,6 +8,7 @@
   border-radius: $radius-xl;
   background: $color-surface;
   box-shadow: $shadow-soft;
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
 
   h2 {
@@ -105,5 +106,8 @@
   font-size: 1.15rem;
   font-weight: 700;
   color: $color-text;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }

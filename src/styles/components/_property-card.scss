@@ -29,6 +29,7 @@
   font-weight: 700;
   color: $color-surface-strong;
   background: rgba(24, 16, 11, 0.45);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -82,6 +83,10 @@
   padding: 10px 14px;
   text-align: center;
   background: #f7f3ef;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .property-card__chips span {
