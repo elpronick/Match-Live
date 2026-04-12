@@ -19,6 +19,9 @@
   padding: 10px 16px;
   color: $color-muted;
   background: rgba(255, 255, 255, 0.8);
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
 
   &.is-active {
     color: $color-surface-strong;

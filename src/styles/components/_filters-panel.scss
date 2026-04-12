@@ -35,4 +35,75 @@
     font-size: 0.85rem;
     color: $color-muted;
   }
+
+  strong {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: $color-text;
+  }
+}
+
+.stat-card--budget .stat-card__budget {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-top: 2px;
+}
+
+.stat-card__budget .stat-card__budget-lead {
+  display: inline;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $color-muted;
+}
+
+.stat-card__budget-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 0 12px 0 14px;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-surface-strong;
+}
+
+.stat-card__budget-input {
+  width: 4.5ch;
+  min-width: 0;
+  padding: 8px 0;
+  border: 0;
+  margin: 0;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: $color-text;
+  background: transparent;
+  text-align: right;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  appearance: textfield;
+}
+
+.stat-card__budget-field:focus-within {
+  border-color: rgba(31, 26, 23, 0.28);
+  box-shadow: 0 0 0 2px rgba(31, 26, 23, 0.06);
+}
+
+.stat-card__currency {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: $color-text;
+  user-select: none;
 }

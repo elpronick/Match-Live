@@ -24,16 +24,34 @@ document.querySelector('#app').innerHTML = `
         </div>
 
         <div class="filters-panel__chips">
-          <button class="chip is-active" type="button">Centro</button>
-          <button class="chip" type="button">Terraza</button>
-          <button class="chip" type="button">Mascotas</button>
-          <button class="chip" type="button">Parking</button>
+          <button class="chip is-active" type="button" aria-pressed="true">
+            Centro
+          </button>
+          <button class="chip" type="button" aria-pressed="false">Terraza</button>
+          <button class="chip" type="button" aria-pressed="false">Mascotas</button>
+          <button class="chip" type="button" aria-pressed="false">Parking</button>
         </div>
 
         <div class="filters-panel__stats">
-          <article class="stat-card">
-            <span>Presupuesto</span>
-            <strong>Hasta 600 EUR</strong>
+          <article class="stat-card stat-card--budget">
+            <span id="budget-label">Presupuesto</span>
+            <div class="stat-card__budget">
+              <span class="stat-card__budget-lead">Hasta</span>
+              <div class="stat-card__budget-field">
+                <input
+                  id="budget-amount"
+                  class="stat-card__budget-input"
+                  type="number"
+                  inputmode="decimal"
+                  min="0"
+                  max="50000"
+                  step="10"
+                  value="600"
+                  aria-labelledby="budget-label"
+                />
+                <span class="stat-card__currency" aria-hidden="true">€</span>
+              </div>
+            </div>
           </article>
           <article class="stat-card">
             <span>Interesados</span>
@@ -76,6 +94,14 @@ document.querySelector('#app').innerHTML = `
 
 const backButton = document.querySelector('#back-btn')
 const nextButton = document.querySelector('#next-btn')
+const filterChipsRoot = document.querySelector('.filters-panel__chips')
+
+filterChipsRoot?.addEventListener('click', (event) => {
+  const chip = event.target.closest('.chip')
+  if (!chip || !filterChipsRoot.contains(chip)) return
+  const selected = chip.classList.toggle('is-active')
+  chip.setAttribute('aria-pressed', String(selected))
+})
 
 const swipeController = createSwipeController({
   properties,
