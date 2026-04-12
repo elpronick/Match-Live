@@ -96,22 +96,28 @@ async def check_brute_force(ip: str, email: str):
     record = await db.login_attempts.find_one({"identifier": identifier})
     if record and record.get("attempts", 0) >= 5:
         lockout_until = record.get("lockout_until")
-        if lockout_until and datetime.now(timezone.utc) < lockout_until:
-            raise HTTPException(status_code=429, detail="Too many failed attempts. Try again in 15 minutes.")
-        else:
-            await db.login_attempts.delete_one({"identifier": identifier})
+        if lockout_until:
+            now = datetime.now(timezone.utc)
+            if lockout_until.tzinfo is None:
+                lockout_until = lockout_until.replace(tzinfo=timezone.utc)
+            if now < lockout_until:
+                raise HTTPException(status_code=429, detail="Too many failed attempts. Try again in 15 minutes.")
+            else:
+                await db.login_attempts.delete_one({"identifier": identifier})
 
 async def record_failed_attempt(ip: str, email: str):
     identifier = f"{ip}:{email}"
+    await db.login_attempts.update_one(
+        {"identifier": identifier},
+        {"$inc": {"attempts": 1}, "$setOnInsert": {"identifier": identifier}},
+        upsert=True
+    )
     record = await db.login_attempts.find_one({"identifier": identifier})
-    if record:
-        new_attempts = record.get("attempts", 0) + 1
-        update = {"$set": {"attempts": new_attempts}}
-        if new_attempts >= 5:
-            update["$set"]["lockout_until"] = datetime.now(timezone.utc) + timedelta(minutes=15)
-        await db.login_attempts.update_one({"identifier": identifier}, update)
-    else:
-        await db.login_attempts.insert_one({"identifier": identifier, "attempts": 1})
+    if record and record.get("attempts", 0) >= 5 and not record.get("lockout_until"):
+        await db.login_attempts.update_one(
+            {"identifier": identifier},
+            {"$set": {"lockout_until": datetime.now(timezone.utc) + timedelta(minutes=15)}}
+        )
 
 async def clear_failed_attempts(ip: str, email: str):
     await db.login_attempts.delete_one({"identifier": f"{ip}:{email}"})
@@ -207,7 +213,7 @@ async def register(req: RegisterRequest, response: Response):
 @app.post("/api/auth/login")
 async def login(req: LoginRequest, request: Request, response: Response):
     email = req.email.strip().lower()
-    ip = request.client.host if request.client else "unknown"
+    ip = request.headers.get("X-Forwarded-For", request.headers.get("X-Real-IP", request.client.host if request.client else "unknown")).split(",")[0].strip()
     await check_brute_force(ip, email)
     user = await db.users.find_one({"email": email})
     if not user or not verify_password(req.password, user["password_hash"]):
