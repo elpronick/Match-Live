@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
+import { Link } from 'react-router-dom';
 
 const LOGO_URL = 'https://customer-assets.emergentagent.com/job_2c2465d1-108e-46f2-8f78-446c2974f0d1/artifacts/bkpp9zrl_match%26live.jpeg';
 
@@ -10,6 +12,7 @@ const navLinks = [
 ];
 
 export default function Header() {
+  const { user, loading } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -45,9 +48,17 @@ export default function Header() {
         </nav>
 
         <div className="site-header__actions">
-          <a href="#pisos" className="site-header__cta" data-testid="header-cta-button">
-            Explorar pisos
-          </a>
+          {!loading && user ? (
+            <Link to="/dashboard" className="site-header__user" data-testid="header-user-button">
+              <span className="site-header__user-avatar">{(user.name || 'U').charAt(0).toUpperCase()}</span>
+              <span className="site-header__user-name">{user.name}</span>
+            </Link>
+          ) : (
+            <>
+              <Link to="/login" className="site-header__login" data-testid="header-login-button">Entrar</Link>
+              <Link to="/register" className="site-header__cta" data-testid="header-cta-button">Registrate</Link>
+            </>
+          )}
 
           <button
             className={`site-header__burger ${menuOpen ? 'is-open' : ''}`}
@@ -151,6 +162,50 @@ export default function Header() {
           transform: translateY(-2px);
           background: var(--color-accent-dark);
           box-shadow: 0 8px 24px rgba(232, 139, 139, 0.4);
+        }
+        .site-header__login {
+          padding: 11px 20px;
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: var(--color-text);
+          text-decoration: none;
+          border-radius: var(--radius-pill);
+          transition: background 0.2s ease;
+        }
+        .site-header__login:hover {
+          background: rgba(232, 139, 139, 0.1);
+        }
+        .site-header__user {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 16px 6px 6px;
+          background: rgba(255,255,255,0.6);
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-pill);
+          text-decoration: none;
+          transition: background 0.2s, box-shadow 0.2s;
+        }
+        .site-header__user:hover {
+          background: rgba(255,255,255,0.9);
+          box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+        .site-header__user-avatar {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.82rem;
+          font-weight: 800;
+          color: #fff;
+          background: linear-gradient(135deg, var(--color-accent), var(--color-green));
+        }
+        .site-header__user-name {
+          font-size: 0.88rem;
+          font-weight: 700;
+          color: var(--color-text);
         }
         .site-header__burger {
           display: none;

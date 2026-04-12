@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
+import axios from 'axios';
+
+const API = process.env.REACT_APP_BACKEND_URL;
 
 const properties = [
   {
@@ -50,9 +54,20 @@ const properties = [
 const filterChips = ['Centro', 'Terraza', 'Mascotas', 'Parking'];
 
 export default function DeckSection() {
+  const { user } = useAuth();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeChips, setActiveChips] = useState(new Set(['Centro']));
   const [budget, setBudget] = useState(600);
+  const [savedIds, setSavedIds] = useState(new Set());
+  const [saveMsg, setSaveMsg] = useState('');
+
+  useEffect(() => {
+    if (user) {
+      axios.get(`${API}/api/saved`, { withCredentials: true })
+        .then(({ data }) => setSavedIds(new Set(data.map(s => s.property_id))))
+        .catch(() => {});
+    }
+  }, [user]);
 
   const current = properties[currentIndex];
   const canGoBack = currentIndex > 0;
@@ -60,6 +75,21 @@ export default function DeckSection() {
 
   const goBack = () => canGoBack && setCurrentIndex(i => i - 1);
   const goNext = () => canGoNext && setCurrentIndex(i => i + 1);
+
+  const toggleSave = async () => {
+    if (!user || !current) return;
+    const id = current.id;
+    if (savedIds.has(id)) {
+      await axios.delete(`${API}/api/saved/${id}`, { withCredentials: true }).catch(() => {});
+      setSavedIds(prev => { const n = new Set(prev); n.delete(id); return n; });
+      setSaveMsg('Eliminado de guardados');
+    } else {
+      await axios.post(`${API}/api/saved/${id}`, {}, { withCredentials: true }).catch(() => {});
+      setSavedIds(prev => new Set(prev).add(id));
+      setSaveMsg('Guardado!');
+    }
+    setTimeout(() => setSaveMsg(''), 2000);
+  };
 
   const toggleChip = (chip) => {
     setActiveChips(prev => {
@@ -157,6 +187,7 @@ export default function DeckSection() {
             </div>
           )}
           <div className="swipe-actions" data-testid="swipe-actions">
+            {saveMsg && <div className="save-toast" data-testid="save-toast">{saveMsg}</div>}
             <button
               className="swipe-btn swipe-btn--reject"
               onClick={goBack}
@@ -165,8 +196,8 @@ export default function DeckSection() {
             >
               Atras
             </button>
-            <button className="swipe-btn swipe-btn--save" disabled data-testid="swipe-save-btn">
-              Guardar
+            <button className="swipe-btn swipe-btn--save" onClick={toggleSave} disabled={!user || !current} data-testid="swipe-save-btn">
+              {current && savedIds.has(current.id) ? 'Guardado' : 'Guardar'}
             </button>
             <button
               className="swipe-btn swipe-btn--like"
@@ -459,6 +490,17 @@ export default function DeckSection() {
         .swipe-btn--reject:hover:not(:disabled) { background: #ffe4dc; border-color: rgba(167,79,53,0.24); }
         .swipe-btn--save { color: #8a6511; background: #fff6db; }
         .swipe-btn--save:hover:not(:disabled) { background: #fff3cf; border-color: rgba(138,101,17,0.24); }
+        .save-toast {
+          grid-column: 1 / -1;
+          text-align: center;
+          padding: 8px 16px;
+          font-size: 0.88rem;
+          font-weight: 700;
+          color: var(--color-success);
+          background: var(--color-success-soft);
+          border-radius: var(--radius-pill);
+          animation: fadeInUp 0.3s ease;
+        }
         .swipe-btn--like { color: #0c7655; background: #daf6ec; }
         .swipe-btn--like:hover:not(:disabled) { background: #d2f5e8; border-color: rgba(12,118,85,0.24); }
 
@@ -483,6 +525,10 @@ export default function DeckSection() {
           .property-card__heading { flex-direction: column; }
           .swipe-actions { display: grid; grid-template-columns: auto minmax(148px, 196px) auto; justify-content: center; }
           .swipe-btn { min-width: 0; width: 100%; }
+        }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </section>
