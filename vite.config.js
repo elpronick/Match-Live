@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/Match-Live/',
+  base: '/',
   css: {
     preprocessorOptions: {
       scss: {
