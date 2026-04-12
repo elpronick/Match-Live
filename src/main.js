@@ -47,23 +47,26 @@ document.querySelector('#app').innerHTML = `
 
         <div class="swipe-actions">
           <button
-            class="swipe-button swipe-button--reject swipe-button--icon"
+            class="swipe-button swipe-button--reject"
             id="back-btn"
             type="button"
-            aria-label="Volver a la habitacion anterior"
           >
-            <span aria-hidden="true">←</span>
+            Atrás
           </button>
-          <button class="swipe-button swipe-button--save" id="save-btn" type="button">
+          <button
+            class="swipe-button swipe-button--save"
+            id="save-btn"
+            type="button"
+            disabled
+          >
             Guardar
           </button>
           <button
-            class="swipe-button swipe-button--like swipe-button--icon"
+            class="swipe-button swipe-button--like"
             id="next-btn"
             type="button"
-            aria-label="Ir a la siguiente habitacion"
           >
-            <span aria-hidden="true">→</span>
+            Siguiente
           </button>
         </div>
       </section>
@@ -72,7 +75,6 @@ document.querySelector('#app').innerHTML = `
 `
 
 const backButton = document.querySelector('#back-btn')
-const saveButton = document.querySelector('#save-btn')
 const nextButton = document.querySelector('#next-btn')
 
 const swipeController = createSwipeController({
@@ -89,11 +91,6 @@ function syncActionButtons() {
 
 backButton.addEventListener('click', () => {
   swipeController.goBack()
-  syncActionButtons()
-})
-
-saveButton.addEventListener('click', () => {
-  swipeController.swipe('save')
   syncActionButtons()
 })
 

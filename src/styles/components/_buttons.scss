@@ -13,7 +13,6 @@
   padding: 14px 22px;
   border: 1px solid $color-border;
   background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(10px);
 }
 
 .chip {
@@ -112,23 +111,54 @@
       border-color: rgba(12, 118, 85, 0.18);
     }
   }
+}
 
-  &--icon {
-    min-width: 72px;
-    padding-inline: 0;
-    font-size: 1.55rem;
-    line-height: 1;
+.swipe-actions {
+  .swipe-button--reject,
+  .swipe-button--like {
+    min-width: min-content;
+    padding-inline: 18px;
+  }
 
-    span {
-      display: inline-block;
-      transform: translateY(-1px);
+  .swipe-button {
+    transition:
+      transform 220ms cubic-bezier(0.33, 1, 0.68, 1),
+      box-shadow 220ms ease,
+      background-color 200ms ease,
+      border-color 200ms ease,
+      color 200ms ease;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.08),
+        0 4px 12px rgba(15, 23, 42, 0.06);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    &--reject:hover:not(:disabled) {
+      background: #ffe4dc;
+      border-color: rgba(167, 79, 53, 0.24);
+    }
+
+    &--save:hover:not(:disabled) {
+      background: #fff3cf;
+      border-color: rgba(138, 101, 17, 0.24);
+    }
+
+    &--like:hover:not(:disabled) {
+      background: #d2f5e8;
+      border-color: rgba(12, 118, 85, 0.24);
     }
   }
 }
 
 @media (max-width: $bp-mobile) {
   .swipe-actions {
-    grid-template-columns: 72px minmax(148px, 196px) 72px;
+    grid-template-columns: auto minmax(148px, 196px) auto;
     justify-content: center;
     align-items: center;
   }
