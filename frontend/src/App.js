@@ -28,7 +28,7 @@ function LandingPage() {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <div className="app" data-testid="app-container">
           <Routes>
             <Route path="/" element={<LandingPage />} />
