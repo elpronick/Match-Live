@@ -69,11 +69,18 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  justify-content: flex-start;
 }
 
 .property-card__meta li,
 .property-card__chips span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  max-width: 100%;
   padding: 10px 14px;
+  text-align: center;
   background: #f7f3ef;
 }
 
@@ -87,7 +94,15 @@
     min-height: 300px;
   }
 
+  .property-card__body {
+    padding: 22px 18px;
+  }
+
   .property-card__heading {
     flex-direction: column;
+  }
+
+  .property-card__tag {
+    max-width: 100%;
   }
 }

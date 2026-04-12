@@ -32,6 +32,12 @@
   gap: 14px;
 }
 
+@media (max-width: $bp-mobile) {
+  .swipe-actions {
+    display: grid;
+  }
+}
+
 @media (max-width: $bp-tablet) {
   .deck-section__stack {
     min-height: 0;

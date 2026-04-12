@@ -12,5 +12,8 @@
     "sass": "^1.93.2",
     "sass-embedded": "^1.93.2",
     "vite": "^8.0.4"
+  },
+  "dependencies": {
+    "openai": "^6.34.0"
   }
 }

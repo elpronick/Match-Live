@@ -28,20 +28,40 @@
 }
 
 .swipe-button {
+  position: relative;
+  overflow: hidden;
   min-width: 118px;
   padding: 16px 20px;
   font-weight: 700;
+  border: 1px solid transparent;
   box-shadow: $shadow-soft;
   transform: translateY(0);
   transition:
     transform 180ms ease,
-    box-shadow 180ms ease,
-    filter 180ms ease;
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.4));
+    opacity: 0;
+    transform: translateX(-24%);
+    transition:
+      opacity 180ms ease,
+      transform 220ms ease;
+    pointer-events: none;
+  }
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 18px 34px rgba(49, 30, 19, 0.18);
-    filter: brightness(1.02);
+    transform: translateY(-2px);
+
+    &::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   &:active {
@@ -53,22 +73,44 @@
     opacity: 0.45;
     transform: none;
     box-shadow: none;
-    filter: none;
+
+    &::before {
+      opacity: 0;
+      transform: translateX(-24%);
+    }
   }
 
   &--reject {
     color: #a74f35;
     background: #fff1ec;
+
+    &:hover {
+      color: #8c3f29;
+      background: #ffd8cf;
+      border-color: rgba(167, 79, 53, 0.18);
+    }
   }
 
   &--save {
     color: #8a6511;
     background: #fff6db;
+
+    &:hover {
+      color: #71510b;
+      background: #ffeeb7;
+      border-color: rgba(138, 101, 17, 0.18);
+    }
   }
 
   &--like {
     color: #0c7655;
     background: #daf6ec;
+
+    &:hover {
+      color: #085b41;
+      background: #bff0dd;
+      border-color: rgba(12, 118, 85, 0.18);
+    }
   }
 
   &--icon {
@@ -85,7 +127,14 @@
 }
 
 @media (max-width: $bp-mobile) {
+  .swipe-actions {
+    grid-template-columns: 72px minmax(148px, 196px) 72px;
+    justify-content: center;
+    align-items: center;
+  }
+
   .swipe-button {
-    flex: 1 1 140px;
+    width: 100%;
+    min-width: 0;
   }
 }
