@@ -1,0 +1,97 @@
+.how-section {
+          padding: 80px 24px 100px;
+        }
+        .how-section__inner {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+        .how-section__header {
+          text-align: center;
+          margin-bottom: 64px;
+        }
+        .how-section__eyebrow {
+          display: inline-block;
+          font-size: 0.82rem;
+          font-weight: 800;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--color-accent);
+          margin-bottom: 12px;
+        }
+        .how-section__title {
+          font-size: clamp(2rem, 4vw, 3rem);
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          margin-bottom: 14px;
+        }
+        .how-section__subtitle {
+          font-size: 1.05rem;
+          color: var(--color-muted);
+          max-width: 520px;
+          margin: 0 auto;
+          line-height: 1.65;
+        }
+        .how-section__grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+          position: relative;
+        }
+        .how-card {
+          position: relative;
+          padding: 32px 24px;
+          background: var(--color-surface);
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-xl);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .how-card:hover {
+          transform: translateY(-6px);
+          box-shadow: var(--shadow-soft);
+        }
+        .how-card__icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 56px;
+          height: 56px;
+          border-radius: 16px;
+          color: #fff;
+          background: linear-gradient(135deg, var(--color-accent), var(--color-green));
+          margin-bottom: 20px;
+        }
+        .how-card__number {
+          display: block;
+          font-size: 0.78rem;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          color: var(--color-accent);
+          margin-bottom: 8px;
+        }
+        .how-card__title {
+          font-size: 1.2rem;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+        .how-card__desc {
+          font-size: 0.9rem;
+          line-height: 1.6;
+          color: var(--color-muted);
+        }
+        .how-card__connector {
+          display: none;
+        }
+
+        @media (max-width: 900px) {
+          .how-section__grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        @media (max-width: 640px) {
+          .how-section__grid {
+            grid-template-columns: 1fr;
+          }
+          .how-section { padding: 60px 24px 80px; }
+        }

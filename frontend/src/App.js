@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import Dashboard from './components/Dashboard';
-import './App.css';
+import './App.scss';
 
 function LandingPage() {
   return (
@@ -43,3 +43,4 @@ function App() {
 }
 
 export default App;
+

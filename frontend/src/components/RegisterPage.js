@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { AuthStyles } from './LoginPage';
+import './Auth.scss';
 
 const lifestyleOptions = [
   'Tranquilo y casero',
@@ -107,7 +107,7 @@ export default function RegisterPage() {
           ¿Ya tienes cuenta? <Link to="/login" data-testid="go-to-login">Inicia sesion</Link>
         </p>
       </div>
-      <AuthStyles />
     </div>
   );
 }
+
