@@ -14,12 +14,31 @@ export default function Header() {
   const { user, loading } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrollMeterActive, setScrollMeterActive] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      const nextScrollY = window.scrollY;
+      const maxScroll = Math.max(
+        document.documentElement.scrollHeight - window.innerHeight,
+        0
+      );
+      const nextProgress = maxScroll > 0 ? Math.min(nextScrollY / maxScroll, 1) : 0;
+
+      setScrolled(nextScrollY > 20);
+      setScrollProgress(nextProgress);
+    };
+
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const handleBurgerClick = () => {
+    setMenuOpen((prev) => !prev);
+    setScrollMeterActive((prev) => !prev);
+  };
 
   return (
     <header
@@ -64,13 +83,19 @@ export default function Header() {
 
           <button
             className={`site-header__burger ${menuOpen ? 'is-open' : ''}`}
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={handleBurgerClick}
             data-testid="header-burger-button"
             aria-label="Menu"
+            aria-pressed={scrollMeterActive}
           >
-            <span />
-            <span />
-            <span />
+            <span className="site-header__burger-line" />
+            <span className="site-header__burger-line" />
+            <span className="site-header__burger-line" />
+            <span
+              className={`site-header__burger-meter ${scrollMeterActive ? 'is-active' : ''}`}
+              style={{ '--scroll-progress': scrollProgress }}
+              aria-hidden="true"
+            />
           </button>
         </div>
       </div>
