@@ -1,6 +1,8 @@
- './DeckSection.scss';
- './DeckSection.scss';
- './DeckSection.scss';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useAuth } from './AuthContext';
+import './DeckSection.scss';
+
 const API = process.env.REACT_APP_BACKEND_URL;
 
 const properties = [
@@ -62,8 +64,9 @@ export default function DeckSection() {
 
   useEffect(() => {
     if (user) {
-      axios.get(`${API}/api/saved`, { withCredentials: true })
-        .then(({ data }) => setSavedIds(new Set(data.map(s => s.property_id))))
+      axios
+        .get(`${API}/api/saved`, { withCredentials: true })
+        .then(({ data }) => setSavedIds(new Set(data.map((s) => s.property_id))))
         .catch(() => {});
     }
   }, [user]);
@@ -72,28 +75,35 @@ export default function DeckSection() {
   const canGoBack = currentIndex > 0;
   const canGoNext = currentIndex < properties.length - 1;
 
-  const goBack = () => canGoBack && setCurrentIndex(i => i - 1);
-  const goNext = () => canGoNext && setCurrentIndex(i => i + 1);
+  const goBack = () => canGoBack && setCurrentIndex((index) => index - 1);
+  const goNext = () => canGoNext && setCurrentIndex((index) => index + 1);
 
   const toggleSave = async () => {
     if (!user || !current) return;
+
     const id = current.id;
     if (savedIds.has(id)) {
       await axios.delete(`${API}/api/saved/${id}`, { withCredentials: true }).catch(() => {});
-      setSavedIds(prev => { const n = new Set(prev); n.delete(id); return n; });
+      setSavedIds((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
       setSaveMsg('Eliminado de guardados');
     } else {
       await axios.post(`${API}/api/saved/${id}`, {}, { withCredentials: true }).catch(() => {});
-      setSavedIds(prev => new Set(prev).add(id));
+      setSavedIds((prev) => new Set(prev).add(id));
       setSaveMsg('Guardado!');
     }
+
     setTimeout(() => setSaveMsg(''), 2000);
   };
 
   const toggleChip = (chip) => {
-    setActiveChips(prev => {
+    setActiveChips((prev) => {
       const next = new Set(prev);
-      next.has(chip) ? next.delete(chip) : next.add(chip);
+      if (next.has(chip)) next.delete(chip);
+      else next.add(chip);
       return next;
     });
   };
@@ -102,8 +112,12 @@ export default function DeckSection() {
     <section className="deck-wrap" id="pisos" data-testid="deck-section">
       <div className="deck-wrap__header">
         <span className="deck-wrap__eyebrow">Descubre pisos</span>
-        <h2 className="deck-wrap__title" data-testid="deck-title">Encuentra tu compañero de piso</h2>
-        <p className="deck-wrap__subtitle">Desliza por habitaciones reales en las mejores zonas. Tu proximo hogar esta aqui.</p>
+        <h2 className="deck-wrap__title" data-testid="deck-title">
+          Encuentra tu companero de piso
+        </h2>
+        <p className="deck-wrap__subtitle">
+          Desliza por habitaciones reales en las mejores zonas. Tu proximo hogar esta aqui.
+        </p>
       </div>
 
       <div className="deck-wrap__inner">
@@ -114,7 +128,7 @@ export default function DeckSection() {
             <p className="filters-panel__muted">Base preparada para filtros, favoritos y recomendacion.</p>
           </div>
           <div className="filters-panel__chips">
-            {filterChips.map(chip => (
+            {filterChips.map((chip) => (
               <button
                 key={chip}
                 className={`chip ${activeChips.has(chip) ? 'chip--active' : ''}`}
@@ -138,7 +152,7 @@ export default function DeckSection() {
                     max="50000"
                     step="10"
                     value={budget}
-                    onChange={e => setBudget(e.target.value)}
+                    onChange={(event) => setBudget(event.target.value)}
                     className="stat-card__input"
                     data-testid="budget-input"
                   />
@@ -158,24 +172,36 @@ export default function DeckSection() {
             <article className="property-card" data-testid={`property-card-${current.id}`}>
               <div
                 className="property-card__media"
-                style={{ backgroundImage: `linear-gradient(180deg, rgba(24,16,11,0.04), rgba(24,16,11,0.42)), url('${current.image}')` }}
+                style={{
+                  backgroundImage: `linear-gradient(180deg, rgba(24,16,11,0.04), rgba(24,16,11,0.42)), url('${current.image}')`,
+                }}
               >
-                <span className="property-card__tag" data-testid="property-tag">{current.tag}</span>
+                <span className="property-card__tag" data-testid="property-tag">
+                  {current.tag}
+                </span>
               </div>
               <div className="property-card__body">
                 <div className="property-card__heading">
                   <div>
                     <p className="property-card__location">{current.location}</p>
-                    <h3 className="property-card__name" data-testid="property-title">{current.title}</h3>
+                    <h3 className="property-card__name" data-testid="property-title">
+                      {current.title}
+                    </h3>
                   </div>
-                  <p className="property-card__price" data-testid="property-price">{current.price}</p>
+                  <p className="property-card__price" data-testid="property-price">
+                    {current.price}
+                  </p>
                 </div>
                 <p className="property-card__desc">{current.description}</p>
                 <ul className="property-card__meta">
-                  {current.meta.map(m => <li key={m}>{m}</li>)}
+                  {current.meta.map((meta) => (
+                    <li key={meta}>{meta}</li>
+                  ))}
                 </ul>
-                <div className="property-card__perks">
-                  {current.perks.map(p => <span key={p}>{p}</span>)}
+                <div className="property-card__chips">
+                  {current.perks.map((perk) => (
+                    <span key={perk}>{perk}</span>
+                  ))}
                 </div>
               </div>
             </article>
@@ -185,8 +211,13 @@ export default function DeckSection() {
               <p>La base esta lista para conectar filtros, favoritos o API mas adelante.</p>
             </div>
           )}
+
           <div className="swipe-actions" data-testid="swipe-actions">
-            {saveMsg && <div className="save-toast" data-testid="save-toast">{saveMsg}</div>}
+            {saveMsg && (
+              <div className="save-toast" data-testid="save-toast">
+                {saveMsg}
+              </div>
+            )}
             <button
               className="swipe-btn swipe-btn--reject"
               onClick={goBack}
@@ -195,7 +226,12 @@ export default function DeckSection() {
             >
               Atras
             </button>
-            <button className="swipe-btn swipe-btn--save" onClick={toggleSave} disabled={!user || !current} data-testid="swipe-save-btn">
+            <button
+              className="swipe-btn swipe-btn--save"
+              onClick={toggleSave}
+              disabled={!user || !current}
+              data-testid="swipe-save-btn"
+            >
               {current && savedIds.has(current.id) ? 'Guardado' : 'Guardar'}
             </button>
             <button
@@ -208,11 +244,7 @@ export default function DeckSection() {
             </button>
           </div>
         </div>
-      </div>
+      </div>
     </section>
   );
 }
-
-
-
-
