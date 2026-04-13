@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
 import { Link } from 'react-router-dom';
 
-const LOGO_URL = 'https://customer-assets.emergentagent.com/job_2c2465d1-108e-46f2-8f78-446c2974f0d1/artifacts/bkpp9zrl_match%26live.jpeg';
+import logoUrl from '../assets/match-live-logo.svg';
 
 const navLinks = [
   { label: 'Inicio', href: '#inicio' },
@@ -29,7 +29,7 @@ export default function Header() {
     >
       <div className="site-header__inner">
         <a href="#inicio" className="site-header__logo" data-testid="header-logo" aria-label="Ir a inicio">
-          <img src={LOGO_URL} alt="Match&Live" className="site-header__logo-img" />
+          <img src={logoUrl} alt="Match&Live" className="site-header__logo-img" />
         </a>
 
         <a href="#inicio" className="site-header__logo-text" data-testid="header-logo-text">
@@ -315,3 +315,4 @@ export default function Header() {
     </header>
   );
 }
+

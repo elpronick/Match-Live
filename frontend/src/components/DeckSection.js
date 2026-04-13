@@ -534,8 +534,8 @@ export default function DeckSection() {
           .property-card__heading { flex-direction: column; }
           .property-card__meta,
           .property-card__perks { gap: 10px; }
-          .swipe-actions { display: grid; grid-template-columns: auto minmax(148px, 196px) auto; justify-content: center; }
-          .swipe-btn { min-width: 0; width: 100%; }
+          .swipe-actions { display: grid; grid-template-columns: minmax(88px, 1fr) minmax(132px, 1.15fr) minmax(106px, 1fr); justify-content: center; gap: 10px; }
+          .swipe-btn { min-width: 0; width: 100%; padding: 15px 12px; font-size: 0.95rem; white-space: nowrap; }
         }
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(12px); }
@@ -545,5 +545,6 @@ export default function DeckSection() {
     </section>
   );
 }
+
 
 

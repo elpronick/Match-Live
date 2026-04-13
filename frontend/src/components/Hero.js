@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LOGO_URL = 'https://customer-assets.emergentagent.com/job_2c2465d1-108e-46f2-8f78-446c2974f0d1/artifacts/bkpp9zrl_match%26live.jpeg';
+import logoUrl from '../assets/match-live-logo.svg';
 
 export default function Hero() {
   return (
@@ -56,7 +56,7 @@ export default function Hero() {
             </div>
           </div>
           <img
-            src={LOGO_URL}
+            src={logoUrl}
             alt=""
             className="hero__floating-logo"
             aria-hidden="true"
@@ -241,8 +241,9 @@ export default function Hero() {
           right: 20px;
           width: 64px;
           height: 64px;
-          border-radius: 16px;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+          object-fit: contain;
+          object-position: center;
+          filter: drop-shadow(0 8px 24px rgba(0,0,0,0.14));
           z-index: 3;
           animation: float 4s ease-in-out infinite;
         }
@@ -281,3 +282,4 @@ export default function Hero() {
     </section>
   );
 }
+

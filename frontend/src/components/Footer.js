@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LOGO_URL = 'https://customer-assets.emergentagent.com/job_2c2465d1-108e-46f2-8f78-446c2974f0d1/artifacts/bkpp9zrl_match%26live.jpeg';
+import logoUrl from '../assets/match-live-logo.svg';
 
 export default function Footer() {
   return (
@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="site-footer__inner">
         <div className="site-footer__brand">
           <div className="site-footer__logo">
-            <img src={LOGO_URL} alt="Match&Live" className="site-footer__logo-img" />
+            <img src={logoUrl} alt="Match&Live" className="site-footer__logo-img" />
             <span className="site-footer__logo-text">Match&Live</span>
           </div>
           <p className="site-footer__tagline">
@@ -128,3 +128,4 @@ export default function Footer() {
     </footer>
   );
 }
+
