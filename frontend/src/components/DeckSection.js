@@ -440,15 +440,23 @@ export default function DeckSection() {
           display: flex;
           flex-wrap: wrap;
           gap: 12px;
+          justify-content: flex-start;
+          align-items: flex-start;
         }
         .property-card__meta li,
         .property-card__perks span {
           display: inline-flex;
           align-items: center;
+          justify-content: flex-start;
+          max-width: 100%;
           padding: 10px 14px;
           background: #f7f3ef;
           border-radius: var(--radius-pill);
           font-size: 0.88rem;
+          line-height: 1.35;
+          text-align: left;
+          white-space: normal;
+          word-break: break-word;
           user-select: none;
         }
         .property-card__perks span {
@@ -522,7 +530,10 @@ export default function DeckSection() {
         }
         @media (max-width: 640px) {
           .property-card__media { min-height: 260px; }
+          .property-card__body { padding: 22px 18px; }
           .property-card__heading { flex-direction: column; }
+          .property-card__meta,
+          .property-card__perks { gap: 10px; }
           .swipe-actions { display: grid; grid-template-columns: auto minmax(148px, 196px) auto; justify-content: center; }
           .swipe-btn { min-width: 0; width: 100%; }
         }
@@ -534,3 +545,5 @@ export default function DeckSection() {
     </section>
   );
 }
+
+

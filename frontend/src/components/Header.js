@@ -6,7 +6,7 @@ const LOGO_URL = 'https://customer-assets.emergentagent.com/job_2c2465d1-108e-46
 
 const navLinks = [
   { label: 'Inicio', href: '#inicio' },
-  { label: 'Como funciona', href: '#como-funciona' },
+  { label: 'Cómo funciona', href: '#como-funciona' },
   { label: 'Pisos', href: '#pisos' },
   { label: 'Testimonios', href: '#testimonios' },
 ];
@@ -28,9 +28,12 @@ export default function Header() {
       data-testid="site-header"
     >
       <div className="site-header__inner">
-        <a href="#inicio" className="site-header__logo" data-testid="header-logo">
+        <a href="#inicio" className="site-header__logo" data-testid="header-logo" aria-label="Ir a inicio">
           <img src={LOGO_URL} alt="Match&Live" className="site-header__logo-img" />
-          <span className="site-header__logo-text">Match&Live</span>
+        </a>
+
+        <a href="#inicio" className="site-header__logo-text" data-testid="header-logo-text">
+          Match&Live
         </a>
 
         <nav className={`site-header__nav ${menuOpen ? 'is-open' : ''}`} data-testid="header-nav">
@@ -56,7 +59,7 @@ export default function Header() {
           ) : (
             <>
               <Link to="/login" className="site-header__login" data-testid="header-login-button">Entrar</Link>
-              <Link to="/register" className="site-header__cta" data-testid="header-cta-button">Registrate</Link>
+              <Link to="/register" className="site-header__cta" data-testid="header-cta-button">Regístrate</Link>
             </>
           )}
 
@@ -91,25 +94,28 @@ export default function Header() {
           padding: 8px 0;
         }
         .site-header__inner {
-          display: flex;
+          display: grid;
+          grid-template-columns: auto 1fr auto auto;
           align-items: center;
-          justify-content: space-between;
+          gap: 16px;
           max-width: 1200px;
           margin: 0 auto;
           padding: 0 24px;
         }
         .site-header__logo {
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          gap: 10px;
+          justify-content: center;
+          width: 46px;
+          height: 46px;
           text-decoration: none;
           z-index: 1001;
         }
         .site-header__logo-img {
-          width: 42px;
-          height: 42px;
-          border-radius: 12px;
-          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          object-position: center;
           transition: transform 0.3s ease;
         }
         .site-header__logo:hover .site-header__logo-img {
@@ -120,10 +126,13 @@ export default function Header() {
           font-weight: 800;
           color: var(--color-text);
           letter-spacing: -0.02em;
+          text-decoration: none;
+          white-space: nowrap;
         }
         .site-header__nav {
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 8px;
         }
         .site-header__link {
@@ -143,6 +152,7 @@ export default function Header() {
         .site-header__actions {
           display: flex;
           align-items: center;
+          justify-content: flex-end;
           gap: 12px;
         }
         .site-header__cta {
@@ -232,9 +242,35 @@ export default function Header() {
           transform: translateY(-7px) rotate(-45deg);
         }
 
+        @media (max-width: 960px) {
+          .site-header__inner {
+            grid-template-columns: auto 1fr auto;
+          }
+          .site-header__nav {
+            display: none;
+          }
+        }
+
         @media (max-width: 768px) {
+          .site-header__inner {
+            grid-template-columns: 46px 1fr auto;
+            padding: 0 16px;
+            gap: 10px;
+          }
           .site-header__burger {
             display: flex;
+          }
+          .site-header__logo {
+            width: 42px;
+            height: 42px;
+          }
+          .site-header__logo-text {
+            text-align: center;
+            justify-self: center;
+            font-size: 1.05rem;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
           .site-header__nav {
             position: fixed;
@@ -242,6 +278,7 @@ export default function Header() {
             left: 0;
             right: 0;
             bottom: 0;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             gap: 12px;
@@ -262,8 +299,16 @@ export default function Header() {
             font-size: 1.35rem;
             padding: 14px 28px;
           }
-          .site-header__cta {
+          .site-header__cta,
+          .site-header__login,
+          .site-header__user-name {
             display: none;
+          }
+          .site-header__actions {
+            gap: 8px;
+          }
+          .site-header__user {
+            padding-right: 6px;
           }
         }
       `}</style>

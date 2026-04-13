@@ -64,15 +64,17 @@ export default function Footer() {
           margin-bottom: 16px;
         }
         .site-footer__logo-img {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-          object-fit: cover;
+          width: 44px;
+          height: 44px;
+          object-fit: contain;
+          object-position: center;
+          flex: 0 0 auto;
         }
         .site-footer__logo-text {
           font-size: 1.15rem;
           font-weight: 800;
           color: #fff;
+          white-space: nowrap;
         }
         .site-footer__tagline {
           font-size: 0.92rem;

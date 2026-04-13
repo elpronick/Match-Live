@@ -1,24 +1,42 @@
 # Match-Live
 
-Base de una app tipo Tinder de pisos montada con Vite y JavaScript vanilla.
+App para encontrar habitacion en piso compartido, con frontend en React y backend en FastAPI.
 
-La idea es aprender paso a paso con una estructura sencilla ahora, pero dejando el proyecto preparado para que mas adelante se pueda migrar a React sin empezar desde cero.
+## Estructura actual
 
-## Estructura
+- `frontend/`: aplicacion cliente en React
+- `backend/`: API en FastAPI
+- `.github/workflows/`: automatizaciones de despliegue
+- `memory/` y `test_reports/`: archivos auxiliares del proyecto
 
-- `index.html`: punto de entrada del proyecto
-- `src/main.js`: pinta la interfaz principal
-- `src/style.css`: estilos base de la app
-- `src/data/properties.js`: datos mock de pisos
-- `src/modules/`: modulos reutilizables para render y swipe
-- `public/`: recursos publicos de Vite
+## Como arrancar el proyecto
 
-## Scripts
+### Frontend
 
-- `npm run dev`: arranca el servidor de desarrollo
-- `npm run build`: genera la version de produccion
-- `npm run preview`: previsualiza la build final
+```powershell
+cd frontend
+npm install
+npm start
+```
+
+La app de desarrollo se sirve con `react-scripts`, no con Vite.
+
+### Backend
+
+```powershell
+cd backend
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements-local.txt
+uvicorn server:app --reload
+```
+
+Si necesitas todas las dependencias del backend, usa `requirements.txt` en lugar de `requirements-local.txt`.
 
 ## Deploy
 
-GitHub Pages publica la carpeta `dist` mediante el workflow [deploy-pages.yml](C:/Users/usu/Documents/Proyectos%20CSS/Match-Live/.github/workflows/deploy-pages.yml) cada vez que haces push a `main`.
+GitHub Pages publica el frontend mediante GitHub Actions usando el workflow:
+
+- `.github/workflows/deploy-pages.yml`
+
+Ese workflow construye `frontend/build` y lo despliega en Pages al hacer push a `main`.
