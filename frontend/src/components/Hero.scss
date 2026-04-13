@@ -122,6 +122,7 @@
           align-items: center;
           min-height: 480px;
           animation: fadeInRight 0.8s ease 0.2s both;
+          scale: 1.2;
         }
         .hero__card {
           position: absolute;
@@ -170,8 +171,8 @@
         }
         .hero__floating-logo {
           position: absolute;
-          bottom: 20px;
-          right: 20px;
+          bottom: 10px;
+          right: 50px;
           width: 64px;
           height: 64px;
           scale: 2;
@@ -205,6 +206,11 @@
           .hero__card { width: 240px; }
           .hero__card-img { height: 200px; }
           .hero { padding: 120px 24px 60px; }
+          .hero__floating-logo {
+            bottom: 5px;
+            right: 100px;
+            scale: 2;
+          }
         }
         @media (max-width: 640px) {
           .hero__stats { flex-wrap: wrap; gap: 16px; }
