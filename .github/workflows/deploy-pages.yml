@@ -37,13 +37,13 @@ jobs:
       - name: Build project
         working-directory: frontend
         env:
-          # Configura en GitHub: Settings → Secrets and variables → Actions → Variables → REACT_APP_BACKEND_URL
-          REACT_APP_BACKEND_URL: ${{ vars.REACT_APP_BACKEND_URL }}
+          # Usa VITE_BACKEND_URL y, si aun no esta migrada en GitHub, reaprovecha REACT_APP_BACKEND_URL.
+          VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL || vars.REACT_APP_BACKEND_URL }}
         run: npm run build
 
       # GitHub Pages sirve 404.html para rutas desconocidas; sin esto, /login y /dashboard dan 404 al recargar.
       - name: SPA fallback for GitHub Pages
-        working-directory: frontend/build
+        working-directory: frontend/dist
         run: cp index.html 404.html
 
       - name: Setup Pages
@@ -52,7 +52,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./frontend/build
+          path: ./frontend/dist
 
   deploy:
     environment:

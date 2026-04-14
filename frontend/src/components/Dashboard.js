@@ -3,7 +3,7 @@ import { useAuth } from './AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './Dashboard.scss';
-const API = process.env.REACT_APP_BACKEND_URL;
+const API = import.meta.env.VITE_BACKEND_URL;
 
 const properties = [
   { id: 1, title: 'Habitacion luminosa en piso compartido', location: 'Malasaña, Madrid', price: '460 EUR/mes', image: 'https://images.pexels.com/photos/20725941/pexels-photo-20725941.jpeg' },

@@ -19,7 +19,7 @@ npm install
 npm start
 ```
 
-La app de desarrollo se sirve con `react-scripts`, no con Vite.
+La app de desarrollo se sirve con Vite.
 
 ### Backend
 
@@ -39,4 +39,4 @@ GitHub Pages publica el frontend mediante GitHub Actions usando el workflow:
 
 - `.github/workflows/deploy-pages.yml`
 
-Ese workflow construye `frontend/build` y lo despliega en Pages al hacer push a `main`.
+Ese workflow construye `frontend/dist` y lo despliega en Pages al hacer push a `main`.
