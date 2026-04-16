@@ -76,17 +76,19 @@ export default function Header() {
         </a>
 
         <nav className={`site-header__nav ${menuOpen ? 'is-open' : ''}`} data-testid="header-nav">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="site-header__link"
-              data-testid={`nav-link-${link.href.slice(1)}`}
-              onClick={closeMenu}
-            >
-              {link.label}
-            </a>
-          ))}
+          <div className="site-header__nav-links">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="site-header__link"
+                data-testid={`nav-link-${link.href.slice(1)}`}
+                onClick={closeMenu}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
           <div className="site-header__nav-auth" data-testid="header-mobile-auth">
             <Link
               to="/login"

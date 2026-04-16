@@ -80,6 +80,9 @@
           gap: 10px;
           justify-self: center;
         }
+        .site-header__nav-links {
+          display: contents;
+        }
         .site-header__link {
           position: relative;
           padding: 10px 16px;
@@ -100,6 +103,7 @@
         .site-header__nav-auth-link {
           display: flex;
           align-items: center;
+          justify-content: center;
           min-height: 42px;
           padding: 0 14px;
           border-radius: 12px;
@@ -266,6 +270,13 @@
             pointer-events: none;
             transform: translateY(-10px) scale(0.98);
             transition: opacity 0.3s ease, transform 0.3s ease;
+          }
+          .site-header__nav-links {
+            display: grid;
+            gap: 4px;
+            padding: 42px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.46);
           }
           .site-header__nav.is-open {
             opacity: 1;
