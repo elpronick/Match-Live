@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './components/AuthContext';
+import { useAuth } from './components/AuthContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
@@ -25,6 +26,29 @@ function LandingPage() {
   );
 }
 
+function ProtectedDashboard() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="auth-page" data-testid="dashboard-loading">
+        <div className="auth-card">
+          <div className="auth-card__header">
+            <h1 className="auth-card__title">Cargando tu dashboard</h1>
+            <p className="auth-card__subtitle">Estamos comprobando tu sesión.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Dashboard />;
+}
+
 function App() {
   return (
     <AuthProvider>
@@ -34,7 +58,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<ProtectedDashboard />} />
           </Routes>
         </div>
       </BrowserRouter>

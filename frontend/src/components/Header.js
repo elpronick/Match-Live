@@ -40,6 +40,11 @@ export default function Header() {
     setScrollMeterActive((prev) => !prev);
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setScrollMeterActive(false);
+  };
+
   return (
     <header
       className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}
@@ -61,11 +66,44 @@ export default function Header() {
               href={link.href}
               className="site-header__link"
               data-testid={`nav-link-${link.href.slice(1)}`}
-              onClick={() => setMenuOpen(false)}
+              onClick={closeMenu}
             >
               {link.label}
             </a>
           ))}
+
+          {!loading && (
+            <div className="site-header__nav-auth" data-testid="header-mobile-auth">
+              {user ? (
+                <Link
+                  to="/dashboard"
+                  className="site-header__nav-auth-link site-header__nav-auth-link--user"
+                  onClick={closeMenu}
+                >
+                  Ir al dashboard
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="site-header__nav-auth-link"
+                    data-testid="header-mobile-login-button"
+                    onClick={closeMenu}
+                  >
+                    Entrar
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="site-header__nav-auth-link site-header__nav-auth-link--cta"
+                    data-testid="header-mobile-register-button"
+                    onClick={closeMenu}
+                  >
+                    Regístrate
+                  </Link>
+                </>
+              )}
+            </div>
+          )}
         </nav>
 
         <div className="site-header__actions">

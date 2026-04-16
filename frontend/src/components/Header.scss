@@ -75,6 +75,31 @@
           color: var(--color-text);
           background: rgba(232, 139, 139, 0.1);
         }
+        .site-header__nav-auth {
+          display: none;
+        }
+        .site-header__nav-auth-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 11px 20px;
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: var(--color-text);
+          text-decoration: none;
+          border-radius: var(--radius-pill);
+          border: 1px solid var(--color-border);
+          background: rgba(255, 255, 255, 0.72);
+        }
+        .site-header__nav-auth-link--cta {
+          color: #fff;
+          background: var(--color-accent);
+          border-color: transparent;
+          box-shadow: 0 4px 16px rgba(232, 139, 139, 0.25);
+        }
+        .site-header__nav-auth-link--user {
+          background: rgba(255, 255, 255, 0.88);
+        }
         .site-header__actions {
           display: flex;
           align-items: center;
@@ -256,6 +281,18 @@
           .site-header__nav .site-header__link {
             font-size: 1.35rem;
             padding: 14px 28px;
+          }
+          .site-header__nav-auth {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: min(280px, calc(100vw - 48px));
+            margin-top: 18px;
+          }
+          .site-header__nav-auth-link {
+            width: 100%;
+            min-height: 48px;
+            font-size: 1rem;
           }
           .site-header__cta,
           .site-header__login,
