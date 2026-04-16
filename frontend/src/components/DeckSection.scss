@@ -269,10 +269,10 @@
           border: 1px solid transparent;
           border-radius: var(--radius-pill);
           box-shadow: var(--shadow-soft);
-          transition: transform 220ms cubic-bezier(0.33,1,0.68,1), box-shadow 220ms ease, background 200ms ease, border-color 200ms ease, color 200ms ease;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
         .swipe-btn:hover:not(:disabled) {
-          transform: translateY(-3px) scale(1.02);
+          transform: translateY(-2px);
         }
         .swipe-btn:active:not(:disabled) {
           transform: translateY(-1px) scale(0.98);
@@ -284,9 +284,17 @@
           box-shadow: none;
         }
         .swipe-btn--reject { color: #a74f35; background: #fff1ec; }
-        .swipe-btn--reject:hover:not(:disabled) { background: #ffe4dc; border-color: rgba(167,79,53,0.24); }
+        .swipe-btn--reject:hover:not(:disabled) {
+          background: #ffe4dc;
+          border-color: rgba(167,79,53,0.24);
+          box-shadow: 0 8px 24px rgba(167,79,53,0.24);
+        }
         .swipe-btn--save { color: #8a6511; background: #fff6db; }
-        .swipe-btn--save:hover:not(:disabled) { background: #fff3cf; border-color: rgba(138,101,17,0.24); }
+        .swipe-btn--save:hover:not(:disabled) {
+          background: #fff3cf;
+          border-color: rgba(138,101,17,0.24);
+          box-shadow: 0 8px 24px rgba(138,101,17,0.24);
+        }
         .save-toast {
           grid-column: 1 / -1;
           text-align: center;
@@ -299,7 +307,11 @@
           animation: fadeInUp 0.3s ease;
         }
         .swipe-btn--like { color: #0c7655; background: #daf6ec; }
-        .swipe-btn--like:hover:not(:disabled) { background: #d2f5e8; border-color: rgba(12,118,85,0.24); }
+        .swipe-btn--like:hover:not(:disabled) {
+          background: #d2f5e8;
+          border-color: rgba(12,118,85,0.24);
+          box-shadow: 0 8px 24px rgba(12,118,85,0.24);
+        }
 
         .deck-empty {
           display: grid;

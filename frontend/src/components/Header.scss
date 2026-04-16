@@ -58,7 +58,13 @@
         }
         .site-header__logo-text {
           position: absolute;
-          left: 50%;
+          @media (max-width: 960px) {
+            left: 50%;
+          }
+          @media (min-width: 961px) {
+            left: 17%;
+          }
+
           transform: translateX(-50%);
           font-size: 1.2rem;
           font-weight: 800;
