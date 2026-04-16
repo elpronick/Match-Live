@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
+import saveIconUrl from '../assets/marcador.svg';
+import savedIconUrl from '../assets/marcador-contorno.svg';
 import './DeckSection.scss';
 
 const API = import.meta.env.VITE_BACKEND_URL;
@@ -60,7 +62,6 @@ export default function DeckSection() {
   const [activeChips, setActiveChips] = useState(new Set(['Centro']));
   const [budget, setBudget] = useState(600);
   const [savedIds, setSavedIds] = useState(new Set());
-  const [saveMsg, setSaveMsg] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -72,6 +73,7 @@ export default function DeckSection() {
   }, [user]);
 
   const current = properties[currentIndex];
+  const isSaved = current ? savedIds.has(current.id) : false;
   const canGoBack = currentIndex > 0;
   const canGoNext = currentIndex < properties.length - 1;
 
@@ -89,14 +91,10 @@ export default function DeckSection() {
         next.delete(id);
         return next;
       });
-      setSaveMsg('Eliminado de guardados');
     } else {
       await axios.post(`${API}/api/saved/${id}`, {}, { withCredentials: true }).catch(() => {});
       setSavedIds((prev) => new Set(prev).add(id));
-      setSaveMsg('Guardado!');
     }
-
-    setTimeout(() => setSaveMsg(''), 2000);
   };
 
   const toggleChip = (chip) => {
@@ -213,11 +211,6 @@ export default function DeckSection() {
           )}
 
           <div className="swipe-actions" data-testid="swipe-actions">
-            {saveMsg && (
-              <div className="save-toast" data-testid="save-toast">
-                {saveMsg}
-              </div>
-            )}
             <button
               className="swipe-btn swipe-btn--reject"
               onClick={goBack}
@@ -227,12 +220,18 @@ export default function DeckSection() {
               Atras
             </button>
             <button
-              className="swipe-btn swipe-btn--save"
+              className={`swipe-btn swipe-btn--save ${isSaved ? 'is-saved' : ''}`}
               onClick={toggleSave}
               disabled={!user || !current}
               data-testid="swipe-save-btn"
+              aria-pressed={isSaved}
             >
-              {current && savedIds.has(current.id) ? 'Guardado' : 'Guardar'}
+              <span
+                className="swipe-btn__icon"
+                aria-hidden="true"
+                style={{ '--swipe-icon': `url(${isSaved ? savedIconUrl : saveIconUrl})` }}
+              />
+              <span className="swipe-btn__label">{isSaved ? 'Guardado' : 'Guardar'}</span>
             </button>
             <button
               className="swipe-btn swipe-btn--like"

@@ -44,7 +44,6 @@
           border: 1px solid var(--color-border);
           border-radius: var(--radius-xl);
           backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .how-card:hover {
