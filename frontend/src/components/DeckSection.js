@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useAuth } from './AuthContext';
-import saveIconUrl from '../assets/marcador.svg';
-import savedIconUrl from '../assets/marcador-contorno.svg';
+import React, { useState } from 'react';
 import './DeckSection.scss';
 
-const API = import.meta.env.VITE_BACKEND_URL;
+const SAVE_ICON_PATH = 'M665.6 768L512 614.4 358.4 768V256h307.2v512zM512 537.6L614.4 640V307.2H409.6V640L512 537.6z';
+const SAVED_ICON_PATH = 'M665.6 768L512 614.4 358.4 768V256h307.2v512z';
 
 const properties = [
   {
@@ -56,21 +53,19 @@ const properties = [
 
 const filterChips = ['Centro', 'Terraza', 'Mascotas', 'Parking'];
 
+function SaveMarkerIcon({ saved }) {
+  return (
+    <svg className="swipe-btn__icon" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false">
+      <path d={saved ? SAVED_ICON_PATH : SAVE_ICON_PATH} fill="currentColor" />
+    </svg>
+  );
+}
+
 export default function DeckSection() {
-  const { user } = useAuth();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeChips, setActiveChips] = useState(new Set(['Centro']));
   const [budget, setBudget] = useState(600);
   const [savedIds, setSavedIds] = useState(new Set());
-
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(`${API}/api/saved`, { withCredentials: true })
-        .then(({ data }) => setSavedIds(new Set(data.map((s) => s.property_id))))
-        .catch(() => {});
-    }
-  }, [user]);
 
   const current = properties[currentIndex];
   const isSaved = current ? savedIds.has(current.id) : false;
@@ -80,21 +75,16 @@ export default function DeckSection() {
   const goBack = () => canGoBack && setCurrentIndex((index) => index - 1);
   const goNext = () => canGoNext && setCurrentIndex((index) => index + 1);
 
-  const toggleSave = async () => {
-    if (!user || !current) return;
+  const toggleSave = () => {
+    if (!current) return;
 
     const id = current.id;
-    if (savedIds.has(id)) {
-      await axios.delete(`${API}/api/saved/${id}`, { withCredentials: true }).catch(() => {});
-      setSavedIds((prev) => {
-        const next = new Set(prev);
-        next.delete(id);
-        return next;
-      });
-    } else {
-      await axios.post(`${API}/api/saved/${id}`, {}, { withCredentials: true }).catch(() => {});
-      setSavedIds((prev) => new Set(prev).add(id));
-    }
+    setSavedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   };
 
   const toggleChip = (chip) => {
@@ -222,15 +212,11 @@ export default function DeckSection() {
             <button
               className={`swipe-btn swipe-btn--save ${isSaved ? 'is-saved' : ''}`}
               onClick={toggleSave}
-              disabled={!user || !current}
+              disabled={!current}
               data-testid="swipe-save-btn"
               aria-pressed={isSaved}
             >
-              <span
-                className="swipe-btn__icon"
-                aria-hidden="true"
-                style={{ '--swipe-icon': `url(${isSaved ? savedIconUrl : saveIconUrl})` }}
-              />
+              <SaveMarkerIcon saved={isSaved} />
               <span className="swipe-btn__label">{isSaved ? 'Guardado' : 'Guardar'}</span>
             </button>
             <button

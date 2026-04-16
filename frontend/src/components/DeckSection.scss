@@ -306,15 +306,8 @@
           width: 18px;
           height: 18px;
           flex: 0 0 18px;
-          background: currentColor;
-          -webkit-mask-image: var(--swipe-icon);
-          mask-image: var(--swipe-icon);
-          -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-          -webkit-mask-position: center;
-          mask-position: center;
-          -webkit-mask-size: contain;
-          mask-size: contain;
+          display: block;
+          scale: 2.4;
         }
         .swipe-btn__label {
           line-height: 1;
