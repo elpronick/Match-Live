@@ -22,6 +22,7 @@
           max-width: 1240px;
           margin: 0 auto;
           padding: 0 24px;
+          position: relative;
         }
         .site-header__brand {
           display: inline-flex;
@@ -55,11 +56,16 @@
           transform: scale(3.2) rotate(-2deg);
         }
         .site-header__logo-text {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
           font-size: 1.2rem;
           font-weight: 800;
           color: var(--color-text);
           letter-spacing: -0.02em;
           white-space: nowrap;
+          text-decoration: none;
+          text-align: center;
         }
         .site-header__nav {
           display: flex;
