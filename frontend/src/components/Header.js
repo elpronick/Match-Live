@@ -131,38 +131,39 @@ export default function Header() {
             <>
               <Link to="/login" className="site-header__login" data-testid="header-login-button">Entrar</Link>
               <Link to="/register" className="site-header__cta" data-testid="header-cta-button">Regístrate</Link>
-              <div className={`site-header__session-menu ${sessionMenuOpen ? 'is-open' : ''}`} ref={sessionMenuRef}>
-                <button
-                  type="button"
-                  className="site-header__session-trigger"
-                  data-testid="header-session-trigger"
-                  aria-label="Abrir opciones de sesión"
-                  aria-expanded={sessionMenuOpen}
-                  onClick={() => setSessionMenuOpen((prev) => !prev)}
-                >
-                  <span className="site-header__session-trigger-text">Sesion</span>
-                </button>
-                <div className="site-header__session-dropdown" data-testid="header-session-dropdown">
-                  <Link
-                    to="/login"
-                    className="site-header__session-option"
-                    data-testid="header-session-login"
-                    onClick={closeMenu}
-                  >
-                    Iniciar sesión
-                  </Link>
-                  <Link
-                    to="/register"
-                    className="site-header__session-option"
-                    data-testid="header-session-register"
-                    onClick={closeMenu}
-                  >
-                    Registrarse
-                  </Link>
-                </div>
-              </div>
             </>
           )}
+
+          <div className={`site-header__session-menu ${sessionMenuOpen ? 'is-open' : ''}`} ref={sessionMenuRef}>
+            <button
+              type="button"
+              className="site-header__session-trigger"
+              data-testid="header-session-trigger"
+              aria-label="Abrir opciones de sesión"
+              aria-expanded={sessionMenuOpen}
+              onClick={() => setSessionMenuOpen((prev) => !prev)}
+            >
+              <span className="site-header__session-trigger-text">Sesion</span>
+            </button>
+            <div className="site-header__session-dropdown" data-testid="header-session-dropdown">
+              <Link
+                to="/login"
+                className="site-header__session-option"
+                data-testid="header-session-login"
+                onClick={closeMenu}
+              >
+                Iniciar sesión
+              </Link>
+              <Link
+                to="/register"
+                className="site-header__session-option"
+                data-testid="header-session-register"
+                onClick={closeMenu}
+              >
+                Registrarse
+              </Link>
+            </div>
+          </div>
 
           <button
             className={`site-header__burger ${menuOpen ? 'is-open' : ''}`}
