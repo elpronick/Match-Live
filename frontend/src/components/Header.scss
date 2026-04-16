@@ -16,12 +16,20 @@
         }
         .site-header__inner {
           display: grid;
-          grid-template-columns: auto 1fr auto auto;
+          grid-template-columns: minmax(240px, 1fr) auto minmax(240px, 1fr);
           align-items: center;
-          gap: 16px;
-          max-width: 1200px;
+          gap: 24px;
+          max-width: 1240px;
           margin: 0 auto;
           padding: 0 24px;
+        }
+        .site-header__brand {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          justify-self: start;
+          min-width: 0;
+          text-decoration: none;
         }
         .site-header__logo {
           display: inline-flex;
@@ -30,8 +38,8 @@
           width: 46px;
           height: 46px;
           overflow: visible;
-          text-decoration: none;
           z-index: 1001;
+          flex-shrink: 0;
         }
         .site-header__logo-img {
           width: 100%;
@@ -51,21 +59,20 @@
           font-weight: 800;
           color: var(--color-text);
           letter-spacing: -0.02em;
-          text-decoration: none;
           white-space: nowrap;
-          padding-left: 14px;
         }
         .site-header__nav {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
+          gap: 10px;
+          justify-self: center;
         }
         .site-header__link {
           position: relative;
-          padding: 8px 16px;
+          padding: 10px 16px;
           font-size: 0.92rem;
-          font-weight: 600;
+          font-weight: 700;
           color: var(--color-muted);
           text-decoration: none;
           border-radius: var(--radius-pill);
@@ -74,9 +81,6 @@
         .site-header__link:hover {
           color: var(--color-text);
           background: rgba(232, 139, 139, 0.1);
-        }
-        .site-header__link--mobile-only {
-          display: none;
         }
         .site-header__nav-auth {
           display: none;
@@ -101,37 +105,80 @@
           display: flex;
           align-items: center;
           justify-content: flex-end;
-          gap: 12px;
+          justify-self: end;
+          position: relative;
         }
-        .site-header__cta {
+        .site-header__auth-trigger {
           display: inline-flex;
           align-items: center;
-          padding: 11px 24px;
+          gap: 10px;
+          min-height: 48px;
+          padding: 0 20px;
           font-size: 0.9rem;
           font-weight: 700;
           color: #fff;
           background: var(--color-accent);
+          border: none;
           border-radius: var(--radius-pill);
-          text-decoration: none;
           transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
           box-shadow: 0 4px 16px rgba(232, 139, 139, 0.35);
+          cursor: pointer;
         }
-        .site-header__cta:hover {
+        .site-header__auth-trigger:hover,
+        .site-header__auth-trigger.is-open {
           transform: translateY(-2px);
           background: var(--color-accent-dark);
           box-shadow: 0 8px 24px rgba(232, 139, 139, 0.4);
         }
-        .site-header__login {
-          padding: 11px 20px;
-          font-size: 0.9rem;
+        .site-header__auth-icon {
+          width: 18px;
+          height: 18px;
+          object-fit: contain;
+          filter: brightness(0) invert(1);
+        }
+        .site-header__auth-panel {
+          position: absolute;
+          top: calc(100% + 12px);
+          right: 0;
+          min-width: 190px;
+          padding: 10px;
+          display: grid;
+          gap: 6px;
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          border-radius: 18px;
+          background: rgba(244, 239, 232, 0.86);
+          -webkit-backdrop-filter: blur(18px);
+          backdrop-filter: blur(18px);
+          box-shadow: 0 20px 36px rgba(49, 30, 19, 0.14);
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(-8px);
+          transition: opacity 0.22s ease, transform 0.22s ease;
+          z-index: 1002;
+        }
+        .site-header__auth-panel.is-open {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateY(0);
+        }
+        .site-header__auth-link {
+          display: flex;
+          align-items: center;
+          min-height: 42px;
+          padding: 0 14px;
+          border-radius: 12px;
+          text-decoration: none;
+          font-size: 0.92rem;
           font-weight: 700;
           color: var(--color-text);
-          text-decoration: none;
-          border-radius: var(--radius-pill);
-          transition: background 0.2s ease;
+          transition: background 0.2s ease, color 0.2s ease;
         }
-        .site-header__login:hover {
-          background: rgba(232, 139, 139, 0.1);
+        .site-header__auth-link:hover {
+          background: rgba(232, 139, 139, 0.12);
+          color: var(--color-accent-dark);
+        }
+        .site-header__auth-link--cta {
+          color: var(--color-accent-dark);
         }
         .site-header__burger {
           display: none;
@@ -185,6 +232,7 @@
         @media (max-width: 960px) {
           .site-header__inner {
             grid-template-columns: auto 1fr auto;
+            gap: 16px;
           }
           .site-header__nav {
             position: fixed;
@@ -219,9 +267,6 @@
             padding: 12px 14px;
             border-radius: 12px;
           }
-          .site-header__nav .site-header__link--mobile-only {
-            display: block;
-          }
           .site-header__nav .site-header__link:hover,
           .site-header__nav-auth-link:hover {
             background: rgba(232, 139, 139, 0.12);
@@ -239,7 +284,8 @@
             min-height: 44px;
             font-size: 0.98rem;
           }
-          .site-header__actions a {
+          .site-header__auth-trigger,
+          .site-header__auth-panel {
             display: none;
           }
           .site-header__burger {
@@ -266,8 +312,6 @@
             transform: scale(3.8) rotate(-2deg);
           }
           .site-header__logo-text {
-            text-align: center;
-            justify-self: center;
             font-size: 1.05rem;
             min-width: 0;
             overflow: hidden;

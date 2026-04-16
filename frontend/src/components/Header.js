@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import loginIconUrl from '../assets/login.svg';
 import logoUrl from '../assets/match-live-logo.svg';
 import './Header.scss';
 
@@ -13,8 +14,10 @@ const navLinks = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [authMenuOpen, setAuthMenuOpen] = useState(false);
   const [scrollMeterActive, setScrollMeterActive] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const authMenuRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -34,14 +37,27 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (!authMenuRef.current?.contains(event.target)) {
+        setAuthMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    return () => document.removeEventListener('mousedown', handlePointerDown);
+  }, []);
+
   const handleBurgerClick = () => {
     setMenuOpen((prev) => !prev);
     setScrollMeterActive((prev) => !prev);
+    setAuthMenuOpen(false);
   };
 
   const closeMenu = () => {
     setMenuOpen(false);
     setScrollMeterActive(false);
+    setAuthMenuOpen(false);
   };
 
   return (
@@ -50,12 +66,13 @@ export default function Header() {
       data-testid="site-header"
     >
       <div className="site-header__inner">
-        <a href="#inicio" className="site-header__logo" data-testid="header-logo" aria-label="Ir a inicio">
-          <img src={logoUrl} alt="Match&Live" className="site-header__logo-img" />
-        </a>
-
-        <a href="#inicio" className="site-header__logo-text" data-testid="header-logo-text">
-          Match&Live
+        <a href="#inicio" className="site-header__brand" data-testid="header-brand" aria-label="Ir a inicio">
+          <span className="site-header__logo">
+            <img src={logoUrl} alt="Match&Live" className="site-header__logo-img" />
+          </span>
+          <span className="site-header__logo-text" data-testid="header-logo-text">
+            Match&Live
+          </span>
         </a>
 
         <nav className={`site-header__nav ${menuOpen ? 'is-open' : ''}`} data-testid="header-nav">
@@ -63,7 +80,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className={`site-header__link ${link.href === '#inicio' ? '' : 'site-header__link--mobile-only'}`}
+              className="site-header__link"
               data-testid={`nav-link-${link.href.slice(1)}`}
               onClick={closeMenu}
             >
@@ -90,10 +107,27 @@ export default function Header() {
           </div>
         </nav>
 
-        <div className="site-header__actions">
-          <a href="#inicio" className="site-header__login" data-testid="header-home-button">Inicio</a>
-          <Link to="/login" className="site-header__login" data-testid="header-login-button">Sesión</Link>
-          <Link to="/register" className="site-header__cta" data-testid="header-cta-button">Registro</Link>
+        <div className="site-header__actions" ref={authMenuRef}>
+          <button
+            type="button"
+            className={`site-header__auth-trigger ${authMenuOpen ? 'is-open' : ''}`}
+            data-testid="header-auth-trigger"
+            aria-label="Abrir acceso"
+            aria-expanded={authMenuOpen}
+            onClick={() => setAuthMenuOpen((prev) => !prev)}
+          >
+            <img src={loginIconUrl} alt="" className="site-header__auth-icon" aria-hidden="true" />
+            <span>Acceso</span>
+          </button>
+
+          <div className={`site-header__auth-panel ${authMenuOpen ? 'is-open' : ''}`} data-testid="header-auth-panel">
+            <Link to="/login" className="site-header__auth-link" data-testid="header-login-button" onClick={closeMenu}>
+              Iniciar sesión
+            </Link>
+            <Link to="/register" className="site-header__auth-link site-header__auth-link--cta" data-testid="header-cta-button" onClick={closeMenu}>
+              Registro
+            </Link>
+          </div>
 
           <button
             className={`site-header__burger ${menuOpen ? 'is-open' : ''}`}
