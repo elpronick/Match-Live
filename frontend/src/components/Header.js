@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from './AuthContext';
 import { Link } from 'react-router-dom';
 import logoUrl from '../assets/match-live-logo.svg';
@@ -14,8 +14,10 @@ export default function Header() {
   const { user, loading } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [sessionMenuOpen, setSessionMenuOpen] = useState(false);
   const [scrollMeterActive, setScrollMeterActive] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const sessionMenuRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -35,14 +37,27 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (!sessionMenuRef.current?.contains(event.target)) {
+        setSessionMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    return () => document.removeEventListener('mousedown', handlePointerDown);
+  }, []);
+
   const handleBurgerClick = () => {
     setMenuOpen((prev) => !prev);
     setScrollMeterActive((prev) => !prev);
+    setSessionMenuOpen(false);
   };
 
   const closeMenu = () => {
     setMenuOpen(false);
     setScrollMeterActive(false);
+    setSessionMenuOpen(false);
   };
 
   return (
@@ -116,6 +131,36 @@ export default function Header() {
             <>
               <Link to="/login" className="site-header__login" data-testid="header-login-button">Entrar</Link>
               <Link to="/register" className="site-header__cta" data-testid="header-cta-button">Regístrate</Link>
+              <div className={`site-header__session-menu ${sessionMenuOpen ? 'is-open' : ''}`} ref={sessionMenuRef}>
+                <button
+                  type="button"
+                  className="site-header__session-trigger"
+                  data-testid="header-session-trigger"
+                  aria-label="Abrir opciones de sesión"
+                  aria-expanded={sessionMenuOpen}
+                  onClick={() => setSessionMenuOpen((prev) => !prev)}
+                >
+                  <span className="site-header__session-trigger-text">Sesion</span>
+                </button>
+                <div className="site-header__session-dropdown" data-testid="header-session-dropdown">
+                  <Link
+                    to="/login"
+                    className="site-header__session-option"
+                    data-testid="header-session-login"
+                    onClick={closeMenu}
+                  >
+                    Iniciar sesión
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="site-header__session-option"
+                    data-testid="header-session-register"
+                    onClick={closeMenu}
+                  >
+                    Registrarse
+                  </Link>
+                </div>
+              </div>
             </>
           )}
 
