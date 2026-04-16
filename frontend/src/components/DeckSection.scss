@@ -50,6 +50,7 @@
           box-shadow: var(--shadow-soft);
           backdrop-filter: blur(18px);
           -webkit-backdrop-filter: blur(18px);
+          -moz-backdrop-filter: blur(18px);
         }
         .filters-panel__label {
           font-size: 0.82rem;
@@ -143,11 +144,15 @@
           color: var(--color-text);
           background: transparent;
           text-align: right;
+          appearance: textfield;
+          -webkit-appearance: textfield;
           -moz-appearance: textfield;
         }
         .stat-card__input::-webkit-outer-spin-button,
         .stat-card__input::-webkit-inner-spin-button {
+          appearance: none;
           -webkit-appearance: none;
+          -moz-appearance: none;
           margin: 0;
         }
         .stat-card__input:focus { outline: none; }
@@ -188,8 +193,9 @@
           font-weight: 700;
           color: #fff;
           background: rgba(24,16,11,0.45);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
+          -moz-backdrop-filter: blur(18px);
           border-radius: var(--radius-pill);
         }
         .property-card__body {
