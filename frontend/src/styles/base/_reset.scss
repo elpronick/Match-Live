@@ -1,0 +1,37 @@
+@use '../abstracts/variables' as *;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-primary;
+  background-color: $color-background;
+  color: $color-text-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  
+  // Radial gradient mentioned in DESIGN.md
+  background: radial-gradient(circle at top left, rgba(232, 139, 139, 0.15) 0%, transparent 40%),
+              radial-gradient(circle at bottom right, rgba(143, 184, 160, 0.15) 0%, transparent 40%),
+              $color-background;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}

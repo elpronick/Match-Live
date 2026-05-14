@@ -1,0 +1,32 @@
+@use '../abstracts/variables' as *;
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.1;
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.text-muted {
+  color: $color-text-muted;
+}

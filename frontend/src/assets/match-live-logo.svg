@@ -1,0 +1,21 @@
+<svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Texto -->
+  <text x="50%" y="105" text-anchor="middle" font-size="48" font-family="Arial, sans-serif" fill="#e58c86" font-weight="bold">
+    MATCH&amp;LIVE
+  </text>
+
+  <!-- Botón X -->
+  <circle cx="220" cy="180" r="50" fill="#e58c86"/>
+  <line x1="195" y1="155" x2="245" y2="205" stroke="#4a3f45" stroke-width="8" stroke-linecap="round"/>
+  <line x1="245" y1="155" x2="195" y2="205" stroke="#4a3f45" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Botón corazón -->
+  <circle cx="380" cy="180" r="50" fill="#7fa391"/>
+
+  <!-- Corazón perfectamente centrado -->
+  <path d="M 0 -10 C -20 -30, -50 -10, 0 30 C 50 -10, 20 -30, 0 -10"
+        fill="#e6d5c3"
+        transform="translate(380,175) scale(1.2)"/>
+
+</svg>

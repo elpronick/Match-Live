@@ -1,0 +1,38 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.header {
+  @include flex-between;
+  padding: 16px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  @include glass-effect;
+  border-bottom: 1px solid $color-border;
+
+  &__logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: $color-accent-pink-dark;
+  }
+
+  &__nav {
+    display: flex;
+    gap: 32px;
+    
+    a {
+      font-weight: 500;
+      color: $color-text-muted;
+      transition: color 0.3s;
+      
+      &:hover {
+        color: $color-text-primary;
+      }
+    }
+  }
+  
+  &__actions {
+    display: flex;
+    gap: 16px;
+  }
+}
