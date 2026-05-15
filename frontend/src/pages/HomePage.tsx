@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import logoUrl from '../assets/match-live-logo.svg';
 import landingVideoUrl from '../assets/landing-video.mp4';
 import profileUserAccountUrl from '../assets/profile-user-account.svg';
@@ -7,6 +8,8 @@ import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 
 export default function HomePage() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   return (
     <div className="landing">
       {/* TopAppBar */}
@@ -17,19 +20,37 @@ export default function HomePage() {
             <span className="landing__logo-text">Match-Live</span>
           </div>
           <nav className="landing__nav">
-            <a href="#">Características</a>
-            <a href="#">Comunidad</a>
-            <a href="#">Testimonios</a>
+            <a href="#como-funciona">Cómo funciona</a>
+            <a href="#comunidad">Comunidad</a>
+            <a href="#testimonios">Testimonios</a>
           </nav>
           <div className="landing__actions">
             <button className="landing__btn-login">Inicia Sesión</button>
-            <button className="landing__btn-start">
-              <img src={profileUserAccountUrl} alt="Perfil" className="landing__btn-start-mobile" />
-              <span className="landing__btn-start-desktop">
-                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>login</span>
-                Registrarse
-              </span>
-            </button>
+            <div className="landing__profile-menu">
+              <button 
+                className="landing__btn-start"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <img src={profileUserAccountUrl} alt="Perfil" className="landing__btn-start-mobile" />
+                <span className="landing__btn-start-desktop">
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>login</span>
+                  Registrarse
+                </span>
+              </button>
+
+              {isDropdownOpen && (
+                <div className="landing__dropdown">
+                  <a href="#" className="landing__dropdown-item">
+                    <span className="material-symbols-outlined">login</span>
+                    Iniciar sesión
+                  </a>
+                  <a href="#" className="landing__dropdown-item">
+                    <span className="material-symbols-outlined">person_add</span>
+                    Registrarse
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -53,9 +74,9 @@ export default function HomePage() {
                 <span className="material-symbols-outlined">login</span>
                 Acceso
               </button>
-              <button className="landing__btn-outline">
+              <a href="#como-funciona" className="landing__btn-outline" style={{ textDecoration: 'none' }}>
                 Cómo funciona
-              </button>
+              </a>
             </div>
           </div>
           <div className="landing__hero-visual">
