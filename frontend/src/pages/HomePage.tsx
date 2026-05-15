@@ -1,4 +1,3 @@
-import React from 'react';
 import logoUrl from '../assets/match-live-logo.svg';
 import HowItWorks from '../components/HowItWorks';
 import DeckSection from '../components/DeckSection';
