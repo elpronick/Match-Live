@@ -1,3 +1,5 @@
+@use '../abstracts/variables' as *;
+
 .deck-wrap {
           padding: 40px 24px 100px;
         }
@@ -14,7 +16,7 @@
           font-weight: 800;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: var(--color-accent);
+          color: $color-accent-pink-dark;
           margin-bottom: 12px;
         }
         .deck-wrap__title {

@@ -24,7 +24,7 @@ export default function HomePage() {
             <button className="landing__btn-login">Inicia Sesión</button>
             <button className="landing__btn-start">
               <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>login</span>
-              Acceso
+              Registrarse
             </button>
           </div>
         </div>
