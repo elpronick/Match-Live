@@ -1,5 +1,6 @@
 import logoUrl from '../assets/match-live-logo.svg';
 import landingVideoUrl from '../assets/landing-video.mp4';
+import profileUserAccountUrl from '../assets/profile-user-account.svg';
 import HowItWorks from '../components/HowItWorks';
 import DeckSection from '../components/DeckSection';
 import Testimonials from '../components/Testimonials';
@@ -23,8 +24,11 @@ export default function HomePage() {
           <div className="landing__actions">
             <button className="landing__btn-login">Inicia Sesión</button>
             <button className="landing__btn-start">
-              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>login</span>
-              Registrarse
+              <img src={profileUserAccountUrl} alt="Perfil" className="landing__btn-start-mobile" />
+              <span className="landing__btn-start-desktop">
+                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>login</span>
+                Registrarse
+              </span>
             </button>
           </div>
         </div>
