@@ -1,4 +1,5 @@
 import logoUrl from '../assets/match-live-logo.svg';
+import landingVideoUrl from '../assets/landing-video.mp4';
 import HowItWorks from '../components/HowItWorks';
 import DeckSection from '../components/DeckSection';
 import Testimonials from '../components/Testimonials';
@@ -55,10 +56,13 @@ export default function HomePage() {
           </div>
           <div className="landing__hero-visual">
             <div className="landing__glass-card">
-              <img 
-                alt="Un grupo de jóvenes diversos riendo..." 
+              <video 
                 className="landing__hero-img" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjgsdxzbSnhnJBbcnQ07P_MUp51tdl26HU6Sy5E0IE662OmCAS537Prgeu0L5NnDhzDhEsSlayOvbMDI16kVtmDigAsTcvf4FeqqCWXRw9q3Huxv_MqDr2hjW-l6NZWaYHkDCLNMe-nZ3mzykZfAmusbMZpvcvlgxHtS2A2ym3Pjx8CsB_MKxNAGMpFXrVfcCJqO4k2_al49dVCvnzoiKK0Y4rUvD7yTS_EXh6b7P2f1_fUxug6zXo2AZQpAIxUFmxLoG4Zad32LU" 
+                src={landingVideoUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
               />
               <div className="landing__floating-badge">
                 <div className="landing__floating-icon">
