@@ -55,7 +55,7 @@
   &__logo-wrap {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 12px;
   }
 
   &__logo {
@@ -64,7 +64,7 @@
   }
 
   &__logo-text {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 800;
     color: $color-accent-pink;
     line-height: 1.2;
@@ -122,18 +122,18 @@
   &__btn-start {
     background: $color-accent-pink;
     color: #ffffff;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 600;
     border: none;
     border-radius: 9999px;
-    padding: 10px 24px;
+    padding: 8px 10px;
     cursor: pointer;
     box-shadow: 0 8px 16px rgba(232, 139, 139, 0.3);
     transition: all 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
 
     &:hover {
       opacity: 0.9;
