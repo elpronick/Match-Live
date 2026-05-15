@@ -81,7 +81,7 @@ export default function HomePage() {
       {/* Features Bento Grid */}
       <section className="landing__features">
         <div className="landing__features-header">
-          <h2>Encuentra tu compañero ideal</h2>
+          <h2>Encuentra tu <span>compañero ideal</span></h2>
           <p>Un proceso diseñado para conectar estilos de vida compatibles antes de firmar un contrato.</p>
         </div>
         <div className="landing__features-grid">

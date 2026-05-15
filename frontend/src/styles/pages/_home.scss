@@ -345,6 +345,12 @@
       color: $color-text-primary;
       margin-bottom: 16px;
       margin-top: 0;
+
+      span {
+        display: block;
+        font-size: 36px;
+        color: $color-accent-pink;
+      }
     }
 
     p {
