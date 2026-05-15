@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import logoUrl from '../assets/match-live-logo.svg';
 import landingVideoUrl from '../assets/landing-video.mp4';
 import profileUserAccountUrl from '../assets/profile-user-account.svg';
@@ -9,6 +10,7 @@ import Footer from '../components/Footer';
 
 export default function HomePage() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="landing">
@@ -25,11 +27,17 @@ export default function HomePage() {
             <a href="#testimonios">Testimonios</a>
           </nav>
           <div className="landing__actions">
-            <button className="landing__btn-login">Inicia Sesión</button>
+            <button className="landing__btn-login" onClick={() => navigate('/login')}>Inicia Sesión</button>
             <div className="landing__profile-menu">
               <button 
                 className="landing__btn-start"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                onClick={() => {
+                  if (window.innerWidth >= 768) {
+                    navigate('/register');
+                  } else {
+                    setIsDropdownOpen(!isDropdownOpen);
+                  }
+                }}
               >
                 <img src={profileUserAccountUrl} alt="Perfil" className="landing__btn-start-mobile" />
                 <span className="landing__btn-start-desktop">
@@ -40,14 +48,14 @@ export default function HomePage() {
 
               {isDropdownOpen && (
                 <div className="landing__dropdown">
-                  <a href="#" className="landing__dropdown-item">
+                  <Link to="/login" className="landing__dropdown-item">
                     <span className="material-symbols-outlined">login</span>
                     Iniciar sesión
-                  </a>
-                  <a href="#" className="landing__dropdown-item">
+                  </Link>
+                  <Link to="/register" className="landing__dropdown-item">
                     <span className="material-symbols-outlined">person_add</span>
                     Registrarse
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>
@@ -70,7 +78,7 @@ export default function HomePage() {
               Encuentra compañeros compatibles antes de buscar tu próxima habitación. Una experiencia basada en la afinidad y el estilo de vida.
             </p>
             <div className="landing__hero-actions">
-              <button className="landing__btn-start landing__btn-start--large">
+              <button className="landing__btn-start landing__btn-start--large" onClick={() => navigate('/access')}>
                 <span className="material-symbols-outlined">login</span>
                 Acceso
               </button>
