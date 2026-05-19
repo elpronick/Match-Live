@@ -72,7 +72,7 @@ export default function HomePage() {
               <span>La nueva forma de convivir</span>
             </div>
             <h1 className="landing__title">
-              Primero personas,<br /><span className="landing__title-accent">luego piso</span>
+              Encuentra tu compañero de<br /><span className="landing__title-accent">piso ideal</span>
             </h1>
             <p className="landing__desc">
               Encuentra compañeros compatibles antes de buscar tu próxima habitación. Una experiencia basada en la afinidad y el estilo de vida.
