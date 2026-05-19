@@ -19,7 +19,7 @@ export default function HomePage() {
         <div className="landing__header-inner">
           <div className="landing__logo-wrap">
             <img src={logoUrl} alt="Match-Live Logo" className="landing__logo" />
-            <span className="landing__logo-text">Match-Live</span>
+            <span className="landing__logo-text">Match&Live</span>
           </div>
           <nav className="landing__nav">
             <a href="#como-funciona">Cómo funciona</a>
