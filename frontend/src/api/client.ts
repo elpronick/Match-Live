@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-// En desarrollo (sin VITE_BACKEND_URL) la baseURL es '' (vacía):
+// En desarrollo (sin VITE_API_URL) la baseURL es '' (vacía):
 //   → axios enviará peticiones relativas (/api/...) que el proxy de Vite
 //     reenvía automáticamente a http://localhost:5000.
-// En producción define VITE_BACKEND_URL con la URL de tu backend remoto:
+// En producción define VITE_API_URL con la URL de tu backend remoto:
 //   → axios llamará directamente a https://tu-backend.com/api/...
-export const API_BASE_URL = import.meta.env.VITE_BACKEND_URL ?? '';
+export const API_BASE_URL = import.meta.env.VITE_API_URL ?? '';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
