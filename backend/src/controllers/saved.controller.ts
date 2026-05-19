@@ -62,7 +62,7 @@ export const removeSavedProperty = async (req: AuthRequest, res: Response): Prom
       return;
     }
 
-    const { roomId } = req.params;
+    const { roomId } = req.params as { roomId: string };
 
     await prisma.savedProperty.delete({
       where: {

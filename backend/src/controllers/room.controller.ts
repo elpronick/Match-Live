@@ -26,7 +26,7 @@ export const getAllRooms = async (req: Request, res: Response): Promise<void> =>
 
 export const getRoomById = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
+    const { id } = req.params as { id: string };
     const room = await prisma.room.findUnique({
       where: { id },
       include: {
