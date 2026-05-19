@@ -2,13 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSavedProperties } from '../hooks/useSavedProperties';
-
-const properties = [
-  { id: 1, title: 'Habitacion luminosa en piso compartido', location: 'Malasaña, Madrid', price: '460 EUR/mes', image: 'https://images.pexels.com/photos/20725941/pexels-photo-20725941.jpeg' },
-  { id: 2, title: 'Habitacion para estudiantes', location: 'Ruzafa, Valencia', price: '435 EUR/mes', image: 'https://images.pexels.com/photos/20725943/pexels-photo-20725943.jpeg' },
-  { id: 3, title: 'Habitacion (playa/universidad)', location: 'Poblenou, Barcelona', price: '600 EUR/mes', image: 'https://images.pexels.com/photos/27683999/pexels-photo-27683999.jpeg' },
-  { id: 4, title: 'Habitacion tranquila con vibe creativa', location: 'Triana, Sevilla', price: '525 EUR/mes', image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=80' },
-];
+import apiClient from '../api/client';
 
 const lifestyleOptions = ['Tranquilo y casero','Social y activo','Trabajador remoto','Estudiante','Deportista','Nocturno','Madrugador'];
 
@@ -21,6 +15,7 @@ export default function DashboardPage() {
   const [form, setForm] = useState({});
   const [msg, setMsg] = useState('');
   const [error, setError] = useState('');
+  const [allProperties, setAllProperties] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -28,6 +23,13 @@ export default function DashboardPage() {
       loadSaved();
     }
   }, [user, loadSaved]);
+
+  useEffect(() => {
+    // Cargar todas las propiedades para poder cruzarlas con las guardadas
+    apiClient.get('/api/rooms').then(res => {
+      setAllProperties(res.data);
+    }).catch(err => console.error("Error al cargar habitaciones", err));
+  }, []);
 
   const update = (field) => (e) => setForm(prev => ({ ...prev, [field]: e.target.value }));
 
@@ -51,7 +53,7 @@ export default function DashboardPage() {
 
   if (!user) return null;
 
-  const savedProperties = properties.filter(p => saved.some(s => s.property_id === p.id));
+  const savedProperties = allProperties.filter(p => saved.some(s => s.property_id === p.id));
 
   return (
     <div className="dashboard" data-testid="dashboard-page">
@@ -157,9 +159,7 @@ export default function DashboardPage() {
             )}
           </div>
         )}
-      </div>
+      </div>
     </div>
   );
 }
-
-

@@ -207,6 +207,7 @@
           display: grid;
           gap: 20px;
           padding: 24px;
+          background: $color-surface-solid;
         }
         .property-card__heading {
           display: flex;
@@ -238,7 +239,7 @@
           align-items: flex-start;
           padding: 14px 16px;
           border-radius: var(--radius-md);
-          color: var(--color-text);
+          color: $color-accent-pink-dark;
           background: #f7f3ef;
           line-height: 1.5;
         }
@@ -264,7 +265,8 @@
           justify-content: flex-start;
           max-width: 100%;
           padding: 10px 14px;
-          background: #f7f3ef;
+          color: #0c7655;
+          background: $color-success-soft;
           border-radius: var(--radius-pill);
           font-size: 0.88rem;
           line-height: 1.35;
@@ -272,11 +274,6 @@
           white-space: normal;
           word-break: break-word;
           user-select: none;
-        }
-        .property-card__chips span,
-        .property-card__perks span {
-          color: var(--color-success);
-          background: var(--color-success-soft);
         }
 
         /* Swipe buttons */

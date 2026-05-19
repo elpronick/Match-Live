@@ -20,6 +20,6 @@ export async function logoutUser() {
 }
 
 export async function updateUserProfile(profileData) {
-  const { data } = await apiClient.put('/api/auth/profile', profileData);
+  const { data } = await apiClient.put('/api/profile', profileData);
   return data;
 }

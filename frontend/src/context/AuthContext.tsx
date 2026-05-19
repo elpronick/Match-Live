@@ -27,8 +27,8 @@ export function AuthProvider({ children }) {
 
   const checkAuth = useCallback(async () => {
     try {
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
+      const { user } = await getCurrentUser();
+      setUser(user);
     } catch {
       setUser(false);
     } finally {
@@ -40,8 +40,9 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const loggedUser = await loginUser(email, password);
-      setUser(loggedUser);
+      const response = await loginUser(email, password);
+      localStorage.setItem('token', response.token);
+      setUser(response.user);
       return { success: true };
     } catch (e) {
       return { success: false, error: formatError(e.response?.data?.detail) };
@@ -50,8 +51,9 @@ export function AuthProvider({ children }) {
 
   const register = async (formData) => {
     try {
-      const createdUser = await registerUser(formData);
-      setUser(createdUser);
+      const response = await registerUser(formData);
+      localStorage.setItem('token', response.token);
+      setUser(response.user);
       return { success: true };
     } catch (e) {
       return { success: false, error: formatError(e.response?.data?.detail) };
@@ -62,6 +64,7 @@ export function AuthProvider({ children }) {
     try {
       await logoutUser();
     } catch {}
+    localStorage.removeItem('token');
     setUser(false);
   };
 

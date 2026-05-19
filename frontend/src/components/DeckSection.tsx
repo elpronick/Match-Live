@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowLeft, Heart, Home, Lock, MessageCircle, Search, X } from 'lucide-react';
 import { useDeck } from '../hooks/useDeck';
+import ChatModal from './ChatModal';
 
 export default function DeckSection() {
   const {
@@ -23,6 +24,8 @@ export default function DeckSection() {
     handleBack,
     restartDemo,
   } = useDeck();
+
+  const [selectedRoomForChat, setSelectedRoomForChat] = useState(null);
 
   return (
     <section className="deck-wrap" id="pisos" data-testid="deck-section">
@@ -178,12 +181,18 @@ export default function DeckSection() {
                 <div className="match-banner" data-testid="match-banner">
                   <Heart size={18} aria-hidden="true" />
                   <span>
-                    Hay match con {currentMatch.name}. Ahora podeis mirar habitaciones compatibles.
+                    Hay match con {currentMatch?.name}. Ahora podeis mirar habitaciones compatibles.
                   </span>
                 </div>
                 <div className={`rooms-grid ${showAllRooms ? 'rooms-grid--expanded' : ''}`}>
                   {visibleRooms.map((room) => (
-                    <article key={room.id} className="room-card">
+                    <article 
+                      key={room.id} 
+                      className="room-card" 
+                      onClick={() => setSelectedRoomForChat(room)}
+                      role="button"
+                      tabIndex={0}
+                    >
                       <div className="room-card__image" style={{ backgroundImage: `url('${room.image}')` }} />
                       <div className="room-card__body">
                         <p>{room.location}</p>
@@ -217,6 +226,14 @@ export default function DeckSection() {
           </aside>
         </div>
       </div>
+
+      {selectedRoomForChat && (
+        <ChatModal 
+          room={selectedRoomForChat} 
+          partner={currentMatch} 
+          onClose={() => setSelectedRoomForChat(null)} 
+        />
+      )}
     </section>
   );
 }
