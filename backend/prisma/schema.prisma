@@ -29,6 +29,8 @@ model Profile {
   budget      Int?
   lifestyle   String?
   description String?
+  avatarUrl   String?
+  age         Int?
   userId      String   @unique
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

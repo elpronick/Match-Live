@@ -19,9 +19,9 @@ export const getProfiles = async (req: Request, res: Response): Promise<void> =>
           budget: p.budget ? `${p.budget} €/mes` : 'Sin definir',
           lifestyle: p.lifestyle || 'Variado',
           description: p.description || 'Sin descripción',
-          // Campos extra para la UI de Deck que no están en la BD real
-          age: Math.floor(Math.random() * 15) + 20, // 20-34 años
-          image: `https://i.pravatar.cc/300?u=${u.id}`, // Avatar aleatorio consistente
+          // Campos reales ahora en la BBDD
+          age: p.age || 25,
+          image: p.avatarUrl || `https://i.pravatar.cc/300?u=${u.id}`,
           tag: p.lifestyle === 'Social y activo' ? 'Extrovertido' : 'Compatibilidad Alta',
           mutualInterest: Math.random() > 0.5,
           lookingFor: 'Habitación o alquilar juntos',
