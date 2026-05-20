@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Send } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -92,7 +93,7 @@ export default function ChatModal({ room, partner, onClose }) {
 
   if (!partner || !room) return null;
 
-  return (
+  return createPortal(
     <div className="chat-modal-overlay" onClick={onClose} data-testid="chat-overlay">
       <div className="chat-modal" onClick={e => e.stopPropagation()} data-testid="chat-modal">
         
@@ -151,6 +152,7 @@ export default function ChatModal({ room, partner, onClose }) {
         </form>
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
