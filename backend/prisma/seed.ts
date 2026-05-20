@@ -28,7 +28,7 @@ async function main() {
       room: { title: 'Habitación para estudiantes', location: 'Ruzafa, Valencia', price: 435, imageUrl: 'https://images.pexels.com/photos/20725943/pexels-photo-20725943.jpeg', description: 'Piso de estudiantes cerca del metro y la universidad.' }
     },
     {
-      name: 'Ana y Lucía', email: 'ana1@correo.com', city: 'Barcelona', budget: 650, lifestyle: 'Social y activo', age: 21, avatarUrl: 'https://images.unsplash.com/photo-1511556820780-d912e42b4980?auto=format&fit=crop&w=300&q=80',
+      name: 'Ana y Lucía', email: 'ana1@correo.com', city: 'Barcelona', budget: 650, lifestyle: 'Social y activo', age: 21, avatarUrl: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=300&q=80',
       description: 'Somos dos amigas buscando una tercera persona para alquilar juntas.',
       room: { title: 'Habitación cerca de la playa', location: 'Poblenou, Barcelona', price: 600, imageUrl: 'https://images.pexels.com/photos/27683999/pexels-photo-27683999.jpeg', description: 'Piso a 10 minutos de la playa. Ideal para disfrutar de la ciudad.' }
     },
@@ -68,7 +68,7 @@ async function main() {
       room: { title: 'Dormitorio económico', location: 'Delicias, Zaragoza', price: 320, imageUrl: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80', description: 'Muy barato y con calefacción central.' }
     },
     {
-      name: 'Martina y Leo', email: 'marti1@correo.com', city: 'Madrid', budget: 900, lifestyle: 'Tranquilo y casero', age: 26, avatarUrl: 'https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?auto=format&fit=crop&w=300&q=80',
+      name: 'Martina y Leo', email: 'marti1@correo.com', city: 'Madrid', budget: 900, lifestyle: 'Tranquilo y casero', age: 26, avatarUrl: 'https://images.unsplash.com/photo-1545167622-3a6ac756afa4?auto=format&fit=crop&w=300&q=80',
       description: 'Somos pareja, tenemos 2 gatitos muy buenos.',
       room: { title: 'Habitación doble grande', location: 'Chamberí, Madrid', price: 850, imageUrl: 'https://images.unsplash.com/photo-1499955085172-a104c9463ece?auto=format&fit=crop&w=600&q=80', description: 'Habitación enorme para parejas. Aceptamos mascotas.' }
     },
@@ -78,12 +78,12 @@ async function main() {
       room: { title: 'Habitación cerca del centro', location: 'La Malagueta, Málaga', price: 500, imageUrl: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=600&q=80', description: 'A dos pasos de la playa y del centro.' }
     },
     {
-      name: 'Andrea Navarro', email: 'andrea1@correo.com', city: 'Granada', budget: 300, lifestyle: 'Social y activo', age: 20, avatarUrl: 'https://images.unsplash.com/photo-1531123897727-8f129e1bfa8ea?auto=format&fit=crop&w=300&q=80',
+      name: 'Andrea Navarro', email: 'andrea1@correo.com', city: 'Granada', budget: 300, lifestyle: 'Social y activo', age: 20, avatarUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80',
       description: 'Estudiante Erasmus. ¡Quiero aprender español y salir de tapas!',
       room: { title: 'Habitación en el Albaicín', location: 'Albaicín, Granada', price: 280, imageUrl: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=600&q=80', description: 'Vistas a la Alhambra desde la ventana.' }
     },
     {
-      name: 'Sergio Pons', email: 'sergio1@correo.com', city: 'Alicante', budget: 400, lifestyle: 'Deportista', age: 23, avatarUrl: 'https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&fit=crop&w=300&q=80',
+      name: 'Sergio Pons', email: 'sergio1@correo.com', city: 'Alicante', budget: 400, lifestyle: 'Deportista', age: 23, avatarUrl: 'https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?auto=format&fit=crop&w=300&q=80',
       description: 'Surfero, limpio y muy ordenado en casa.',
       room: { title: 'Piso luminoso', location: 'San Juan, Alicante', price: 350, imageUrl: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80', description: 'Terraza grande para guardar tablas de surf.' }
     },
