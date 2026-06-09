@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import loginIconUrl from '../assets/login.svg';
 import logoUrl from '../assets/match-live-logo.svg';
@@ -142,7 +142,7 @@ export default function Header() {
             <span className="site-header__burger-line" />
             <span
               className={`site-header__burger-meter ${scrollMeterActive ? 'is-active' : ''}`}
-              style={{ '--scroll-progress': scrollProgress }}
+              style={{ '--scroll-progress': scrollProgress } as React.CSSProperties}
               aria-hidden="true"
             />
           </button>
