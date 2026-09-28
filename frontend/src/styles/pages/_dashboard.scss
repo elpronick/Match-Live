@@ -166,6 +166,71 @@
         }
         .saved-card__remove:hover { background: #ffe4dc; }
 
+        .matches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .match-card {
+          border-radius: var(--radius-xl);
+          overflow: hidden;
+          background: var(--color-surface-strong);
+          border: 1px solid var(--color-border);
+          box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+          transition: transform 0.2s, box-shadow 0.2s;
+          display: flex;
+          flex-direction: column;
+        }
+        .match-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+        .match-card__media {
+          height: 180px;
+          background-size: cover;
+          background-position: center;
+          position: relative;
+          padding: 12px;
+          display: flex;
+          align-items: flex-start;
+          justify-content: flex-end;
+        }
+        .match-card__badge {
+          background: rgba(21, 143, 104, 0.9);
+          color: #fff;
+          padding: 4px 10px;
+          border-radius: var(--radius-pill);
+          font-size: 0.75rem;
+          font-weight: 700;
+          backdrop-filter: blur(4px);
+        }
+        .match-card__body {
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          gap: 6px;
+        }
+        .match-card__name { font-size: 1.1rem; font-weight: 800; }
+        .match-card__details { font-size: 0.84rem; color: var(--color-muted); }
+        .match-card__desc {
+          font-size: 0.85rem;
+          color: var(--color-text);
+          margin: 4px 0 12px;
+          line-height: 1.4;
+          flex: 1;
+        }
+        .match-card__chat-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          width: 100%;
+          padding: 10px;
+          background: var(--color-accent);
+          color: #fff;
+          border: none;
+          border-radius: var(--radius-pill);
+          font-weight: 700;
+          font-size: 0.88rem;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+        .match-card__chat-btn:hover { background: var(--color-accent-dark); }
+
         @media (max-width: 768px) {
           .dashboard { grid-template-columns: 1fr; }
           .dashboard__sidebar {

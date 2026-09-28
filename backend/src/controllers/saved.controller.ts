@@ -1,5 +1,5 @@
-import type { Request, Response } from 'express';
-import { prisma } from '../db/prisma.js';
+import type { Response } from 'express';
+import { SavedService } from '../services/saved.service.js';
 import type { AuthRequest } from '../middlewares/auth.middleware.js';
 
 export const getSavedProperties = async (req: AuthRequest, res: Response): Promise<void> => {
@@ -10,20 +10,8 @@ export const getSavedProperties = async (req: AuthRequest, res: Response): Promi
       return;
     }
 
-    const saved = await prisma.savedProperty.findMany({
-      where: { userId },
-      include: {
-        room: true
-      },
-      orderBy: { createdAt: 'desc' }
-    });
-
-    const formattedSaved = saved.map(s => ({
-      ...s,
-      property_id: s.roomId
-    }));
-
-    res.json(formattedSaved);
+    const saved = await SavedService.getSavedProperties(userId);
+    res.json(saved);
   } catch (error) {
     console.error('Error fetching saved properties:', error);
     res.status(500).json({ message: 'Error interno del servidor' });
@@ -39,14 +27,7 @@ export const addSavedProperty = async (req: AuthRequest, res: Response): Promise
     }
 
     const { roomId } = req.body;
-
-    const saved = await prisma.savedProperty.create({
-      data: {
-        userId,
-        roomId
-      }
-    });
-
+    const saved = await SavedService.addSavedProperty(userId, roomId);
     res.status(201).json({ message: 'Propiedad guardada', saved });
   } catch (error) {
     console.error('Error adding saved property:', error);
@@ -63,16 +44,7 @@ export const removeSavedProperty = async (req: AuthRequest, res: Response): Prom
     }
 
     const { roomId } = req.params as { roomId: string };
-
-    await prisma.savedProperty.delete({
-      where: {
-        userId_roomId: {
-          userId,
-          roomId
-        }
-      }
-    });
-
+    await SavedService.removeSavedProperty(userId, roomId);
     res.json({ message: 'Propiedad eliminada de guardados' });
   } catch (error) {
     console.error('Error removing saved property:', error);

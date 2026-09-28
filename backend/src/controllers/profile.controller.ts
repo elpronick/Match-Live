@@ -1,5 +1,5 @@
-import type { Request, Response } from 'express';
-import { prisma } from '../db/prisma.js';
+import type { Response } from 'express';
+import { ProfileService } from '../services/profile.service.js';
 import type { AuthRequest } from '../middlewares/auth.middleware.js';
 
 export const getProfile = async (req: AuthRequest, res: Response): Promise<void> => {
@@ -10,19 +10,13 @@ export const getProfile = async (req: AuthRequest, res: Response): Promise<void>
       return;
     }
 
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      include: { profile: true }
-    });
-
-    if (!user) {
+    const profile = await ProfileService.getProfile(userId);
+    res.json(profile);
+  } catch (error: any) {
+    if (error.message === 'USER_NOT_FOUND') {
       res.status(404).json({ message: 'Usuario no encontrado' });
       return;
     }
-
-    const { profile, password, ...userData } = user;
-    res.json({ ...userData, ...profile });
-  } catch (error) {
     console.error('Error fetching profile:', error);
     res.status(500).json({ message: 'Error interno del servidor' });
   }
@@ -36,30 +30,8 @@ export const updateProfile = async (req: AuthRequest, res: Response): Promise<vo
       return;
     }
 
-    const { name, city, budget, lifestyle, description } = req.body;
-
-    // Actualizamos el nombre en User
-    if (name) {
-      await prisma.user.update({
-        where: { id: userId },
-        data: { name }
-      });
-    }
-
-    // Actualizamos el resto en Profile
-    const profile = await prisma.profile.upsert({
-      where: { userId },
-      update: { city, budget, lifestyle, description },
-      create: {
-        userId,
-        city,
-        budget,
-        lifestyle,
-        description
-      }
-    });
-
-    res.json({ message: 'Perfil actualizado correctamente', success: true });
+    const updated = await ProfileService.updateProfile(userId, req.body);
+    res.json({ message: 'Perfil actualizado correctamente', success: true, profile: updated });
   } catch (error) {
     console.error('Error updating profile:', error);
     res.status(500).json({ message: 'Error interno del servidor' });

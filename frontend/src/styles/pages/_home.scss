@@ -270,15 +270,11 @@
   }
 
   &__hero {
-    padding: 80px 16px 32px;
+    padding: 80px 32px;
     max-width: 1280px;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
-
-    @media (min-width: 768px) {
-      padding: 80px 32px 32px;
-    }
   }
 
   &__hero-grid {
@@ -482,16 +478,6 @@
 
     &:hover {
       transform: translateY(-4px);
-    }
-
-    &--offset {
-      @media (min-width: 768px) {
-        transform: translateY(-24px);
-
-        &:hover {
-          transform: translateY(-28px);
-        }
-      }
     }
 
     h3 {

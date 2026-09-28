@@ -1,34 +1,10 @@
-import type { Request, Response } from 'express';
-import { prisma } from '../db/prisma.js';
+import type { Response } from 'express';
+import { MarketplaceService } from '../services/marketplace.service.js';
+import type { AuthRequest } from '../middlewares/auth.middleware.js';
 
-export const getProfiles = async (req: Request, res: Response): Promise<void> => {
+export const getProfiles = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const users = await prisma.user.findMany({
-      include: { profile: true },
-      take: 20
-    });
-
-    const profiles = users
-      .filter(u => u.profile) // Solo los que tengan perfil
-      .map(u => {
-        const p = u.profile!;
-        return {
-          id: u.id,
-          name: u.name,
-          city: p.city || 'Desconocida',
-          budget: p.budget ? `${p.budget} €/mes` : 'Sin definir',
-          lifestyle: p.lifestyle || 'Variado',
-          description: p.description || 'Sin descripción',
-          // Campos reales ahora en la BBDD
-          age: p.age || 25,
-          image: p.avatarUrl || `https://i.pravatar.cc/300?u=${u.id}`,
-          tag: p.lifestyle === 'Social y activo' ? 'Extrovertido' : 'Compatibilidad Alta',
-          mutualInterest: Math.random() > 0.5,
-          lookingFor: 'Habitación o alquilar juntos',
-          traits: [p.lifestyle || 'Tranquilo', p.budget ? `<= ${p.budget}€` : 'Flexible', 'Amigable']
-        };
-      });
-
+    const profiles = await MarketplaceService.getProfiles(req.user?.id);
     res.json(profiles);
   } catch (error) {
     console.error('Error fetching marketplace profiles:', error);
@@ -36,16 +12,32 @@ export const getProfiles = async (req: Request, res: Response): Promise<void> =>
   }
 };
 
-export const likeProfile = async (req: Request, res: Response): Promise<void> => {
+export const likeProfile = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
-    
-    // Al ser de acceso libre, no requerimos JWT ni guardamos en BBDD por ahora.
-    // Simplemente simulamos que el Like fue exitoso.
-    
-    res.json({ success: true, message: `Like enviado al perfil ${id}` });
-  } catch (error) {
+    const { id: toUserId } = req.params as { id: string };
+    const result = await MarketplaceService.likeProfile(toUserId, req.user?.id);
+    res.json(result);
+  } catch (error: any) {
+    if (error.message === 'CANNOT_LIKE_SELF') {
+      res.status(400).json({ message: 'No puedes darte like a ti mismo' });
+      return;
+    }
     console.error('Error liking profile:', error);
+    res.status(500).json({ message: 'Error interno del servidor' });
+  }
+};
+
+export const getMatches = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      res.status(401).json({ message: 'No autorizado' });
+      return;
+    }
+    const matches = await MarketplaceService.getMatches(userId);
+    res.json(matches);
+  } catch (error) {
+    console.error('Error fetching matches:', error);
     res.status(500).json({ message: 'Error interno del servidor' });
   }
 };

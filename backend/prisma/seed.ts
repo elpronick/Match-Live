@@ -5,13 +5,13 @@ import { prisma } from '../src/db/prisma.js';
 async function main() {
   console.log('🌱 Iniciando la generación de datos falsos (Seed)...');
 
-  // Limpiar la base de datos actual (opcional, pero útil para empezar fresco)
-  // Cuidado: deleteMany borrará todo
+  // Limpiar la base de datos actual
+  await prisma.message.deleteMany();
+  await prisma.match.deleteMany();
+  await prisma.like.deleteMany();
   await prisma.savedProperty.deleteMany();
   await prisma.room.deleteMany();
   await prisma.profile.deleteMany();
-  
-  // Borrar todos los usuarios para evitar conflictos de email único
   await prisma.user.deleteMany();
 
   const passwordHash = await bcrypt.hash('123456', 10);
@@ -94,6 +94,7 @@ async function main() {
     }
   ];
 
+  const createdUsers: any[] = [];
   for (const data of usersData) {
     const user = await prisma.user.create({
       data: {
@@ -122,7 +123,59 @@ async function main() {
         }
       }
     });
+    createdUsers.push(user);
     console.log(`Creado usuario: ${user.name} con su perfil y habitación.`);
+  }
+
+  // Crear usuario Demo para pruebas y portfolio
+  const demoUser = await prisma.user.create({
+    data: {
+      name: 'Usuario Demo',
+      email: 'demo@matchlive.com',
+      password: passwordHash,
+      profile: {
+        create: {
+          city: 'Madrid',
+          budget: 550,
+          lifestyle: 'Trabajador remoto',
+          description: 'Perfil de prueba para demostración y evaluación del proyecto Match-Live.',
+          avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80',
+          age: 26,
+        }
+      }
+    }
+  });
+  console.log(`Creado usuario Demo: ${demoUser.email} (password: 123456)`);
+
+  // Crear likes recíprocos y Match mutuo con Laura García (primer usuario)
+  if (createdUsers.length > 0) {
+    const laura = createdUsers[0];
+
+    // Like de Demo a Laura
+    await prisma.like.create({
+      data: {
+        fromUserId: demoUser.id,
+        toUserId: laura.id,
+      }
+    });
+
+    // Like de Laura a Demo (recíproco)
+    await prisma.like.create({
+      data: {
+        fromUserId: laura.id,
+        toUserId: demoUser.id,
+      }
+    });
+
+    // Formalizar Match
+    const [u1, u2] = [demoUser.id, laura.id].sort();
+    await prisma.match.create({
+      data: {
+        user1Id: u1,
+        user2Id: u2,
+      }
+    });
+    console.log(`Creado Match mutuo real entre ${demoUser.name} y ${laura.name}`);
   }
 
   console.log('✅ ¡Seed completado con éxito!');

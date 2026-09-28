@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../abstracts/variables' as *;
 
 .chat-modal-overlay {
@@ -220,7 +221,7 @@
       transition: transform 0.2s, background 0.2s;
       
       &:hover {
-        background: darken(#158f68, 5%);
+        background: color.adjust($color-success-base, $lightness: -5%);
         transform: scale(1.05);
       }
       

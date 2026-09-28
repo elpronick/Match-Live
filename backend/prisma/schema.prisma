@@ -21,6 +21,15 @@ model User {
   profile          Profile?
   rooms            Room[]
   savedProperties  SavedProperty[]
+
+  sentLikes        Like[]          @relation("SentLikes")
+  receivedLikes    Like[]          @relation("ReceivedLikes")
+
+  matchesAsUser1   Match[]         @relation("MatchUser1")
+  matchesAsUser2   Match[]         @relation("MatchUser2")
+
+  sentMessages     Message[]       @relation("SentMessages")
+  receivedMessages Message[]       @relation("ReceivedMessages")
 }
 
 model Profile {
@@ -36,18 +45,19 @@ model Profile {
 }
 
 model Room {
-  id          String   @id @default(uuid())
+  id          String          @id @default(uuid())
   title       String
   description String
   price       Float
   location    String
   imageUrl    String?
-  isAvailable Boolean  @default(true)
+  isAvailable Boolean         @default(true)
   ownerId     String
-  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner       User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   savedBy     SavedProperty[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  messages    Message[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 }
 
 model SavedProperty {
@@ -59,4 +69,41 @@ model SavedProperty {
   createdAt DateTime @default(now())
 
   @@unique([userId, roomId])
+}
+
+model Like {
+  id         String   @id @default(uuid())
+  fromUserId String
+  toUserId   String
+  createdAt  DateTime @default(now())
+
+  fromUser   User     @relation("SentLikes", fields: [fromUserId], references: [id], onDelete: Cascade)
+  toUser     User     @relation("ReceivedLikes", fields: [toUserId], references: [id], onDelete: Cascade)
+
+  @@unique([fromUserId, toUserId])
+}
+
+model Match {
+  id        String   @id @default(uuid())
+  user1Id   String
+  user2Id   String
+  createdAt DateTime @default(now())
+
+  user1     User     @relation("MatchUser1", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2     User     @relation("MatchUser2", fields: [user2Id], references: [id], onDelete: Cascade)
+
+  @@unique([user1Id, user2Id])
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  senderId   String
+  receiverId String
+  roomId     String?
+  content    String
+  createdAt  DateTime @default(now())
+
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  room       Room?    @relation(fields: [roomId], references: [id], onDelete: SetNull)
 }
