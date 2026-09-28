@@ -30,21 +30,21 @@ La solución está construida sobre una arquitectura desacoplada **Fullstack PER
 ```mermaid
 graph TD
     subgraph Client ["Frontend (React 19 + TypeScript + Vite)"]
-        UI[Componentes UI & BEM SCSS]
-        Context[AuthContext & Custom Hooks]
-        AxiosClient[Axios con Interceptores JWT]
+        UI["Componentes UI & BEM SCSS"]
+        Context["AuthContext & Custom Hooks"]
+        AxiosClient["Axios con Interceptores JWT"]
     end
 
     subgraph API ["Backend API (Node.js + Express 5)"]
-        Routes[API Routes]
-        Val[Zod Validation Middleware]
-        Controllers[Controllers]
-        Services[Service Layer (Business Logic)]
+        Routes["API Routes"]
+        Val["Zod Validation Middleware"]
+        Controllers["Controllers"]
+        Services["Service Layer (Business Logic)"]
     end
 
     subgraph Persistence ["Base de Datos"]
-        Prisma[Prisma ORM Client]
-        Postgres[(PostgreSQL)]
+        Prisma["Prisma ORM Client"]
+        Postgres[("PostgreSQL")]
     end
 
     UI --> Context
