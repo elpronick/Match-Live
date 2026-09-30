@@ -78,7 +78,7 @@
 .stat-card {
   flex: 1 1 140px;
   padding: 16px 18px;
-  border-radius: var(--radius-md);
+  border-radius: 34px;
   background: rgba(255,255,255,0.72);
 }
 .stat-card > span {
@@ -159,7 +159,6 @@
 /* Property Card */
 .property-card {
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.65);
   border-radius: var(--radius-lg);
   background: var(--color-surface-strong);
   box-shadow: var(--shadow-card);
@@ -175,6 +174,7 @@
 }
 .roommate-card__media {
   align-items: flex-end;
+  border-radius: 34px 34px 0 0;
   min-height: 430px;
 }
 .roommate-card__summary {
@@ -209,6 +209,7 @@
   display: grid;
   gap: 20px;
   padding: 24px;
+  border-radius: 0 0 34px 34px ;
   background: $color-surface-solid;
 }
 .property-card__heading {
@@ -269,7 +270,7 @@
   padding: 10px 14px;
   color: #0c7655;
   background: $color-success-soft;
-  border-radius: var(--radius-pill);
+  border-radius: 34px;
   font-size: 0.88rem;
   line-height: 1.35;
   text-align: left;
@@ -312,13 +313,13 @@
   transform: none;
   box-shadow: none;
 }
-.swipe-btn--back { color: #456179; background: #eef6fb; }
+.swipe-btn--back { color: #456179; background: #eef6fb; border-radius: 34px;}
 .swipe-btn--back:hover:not(:disabled) {
   background: #e2f0f8;
   border-color: rgba(69,97,121,0.24);
   box-shadow: 0 8px 24px rgba(69,97,121,0.22);
 }
-.swipe-btn--reject { color: #a74f35; background: #fff1ec; }
+.swipe-btn--reject { color: #a74f35; background: #fff1ec; border-radius: 34px;}
 .swipe-btn--reject:hover:not(:disabled) {
   background: #ffe4dc;
   border-color: rgba(167,79,53,0.24);
@@ -345,7 +346,7 @@
 .swipe-btn__label {
   line-height: 1;
 }
-.swipe-btn--like { color: #0c7655; background: #daf6ec; }
+.swipe-btn--like { color: #0c7655; background: #daf6ec; border-radius: 34px;}
 .swipe-btn--like:hover:not(:disabled) {
   background: #d2f5e8;
   border-color: rgba(12,118,85,0.24);
@@ -370,7 +371,7 @@
   gap: 18px;
   padding: 22px;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: 34px;
   background: rgba(255,255,255,0.72);
   box-shadow: var(--shadow-soft);
 }
