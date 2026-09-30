@@ -203,7 +203,7 @@
   color: #fff;
   background: rgba(24,16,11,0.45);
   backdrop-filter: blur(18px);
-  border-radius: var(--radius-pill);
+  border-radius: 34px;
 }
 .property-card__body {
   display: grid;
@@ -241,7 +241,7 @@
   gap: 10px;
   align-items: flex-start;
   padding: 14px 16px;
-  border-radius: var(--radius-md);
+  border-radius: 12px;
   color: $color-accent-pink-dark;
   background: #f7f3ef;
   line-height: 1.5;
@@ -256,18 +256,18 @@
 .property-card__perks {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
 }
+
 .property-card__meta li,
-.property-card__chips span,
 .property-card__perks span {
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
   max-width: 100%;
-  padding: 10px 14px;
+  padding: 8px 14px;
   color: #0c7655;
   background: $color-success-soft;
   border-radius: 34px;
@@ -277,6 +277,67 @@
   white-space: normal;
   word-break: break-word;
   user-select: none;
+}
+
+.property-card__chips span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+  max-width: 100%;
+  padding: 8px 15px;
+  color: #0c7655;
+  background: $color-success-soft;
+  border: 1px solid rgba(12, 118, 85, 0.16);
+  border-radius: 34px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+  user-select: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.property-card__chips .chip--lifestyle {
+  color: #ad4236;
+  background: #fff4f1;
+  border: 1px solid rgba(232, 139, 139, 0.32);
+
+  svg {
+    color: #e88b8b;
+  }
+}
+
+.property-card__chips .chip--budget {
+  color: #8c5d13;
+  background: linear-gradient(135deg, #fffcf5 0%, #fef5e7 100%);
+  border: 1.5px solid rgba(212, 160, 52, 0.4);
+  box-shadow: 0 3px 12px rgba(184, 134, 43, 0.12);
+  font-weight: 700;
+
+  svg {
+    color: #c98e22;
+  }
+}
+
+.property-card__chips .chip--vibe {
+  color: #0c7655;
+  background: #edf9f4;
+  border: 1px solid rgba(12, 118, 85, 0.22);
+
+  svg {
+    color: #158f68;
+  }
 }
 
 /* Swipe buttons */
@@ -427,7 +488,7 @@
   padding: 32px;
   text-align: center;
   border: 1px dashed var(--color-border);
-  border-radius: var(--radius-xl);
+  border-radius: 34px;
   background: rgba(255,255,255,0.55);
 }
 .deck-empty h3 { margin-bottom: 8px; }

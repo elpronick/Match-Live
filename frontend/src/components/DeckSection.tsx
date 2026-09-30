@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowLeft, Heart, Home, Lock, MessageCircle, Search, X } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowLeft, Coins, Heart, Home, Lock, MessageCircle, Search, Smile, Sparkles, X } from 'lucide-react';
 import { useDeck } from '../hooks/useDeck';
 import ChatModal from './ChatModal';
 
@@ -111,9 +111,36 @@ export default function DeckSection() {
                     <span>{current.lookingFor}</span>
                   </div>
                   <div className="property-card__chips">
-                    {(current.traits || []).map((trait) => (
-                      <span key={trait}>{trait}</span>
-                    ))}
+                    {(current.traits || []).map((trait, idx) => {
+                      const isBudget = trait.includes('€') || trait.toLowerCase().includes('presupuesto') || trait.startsWith('<=');
+                      let label = trait;
+                      if (trait.startsWith('<=')) {
+                        const amount = trait.replace('<=', '').replace('€', '').trim();
+                        label = `Hasta ${amount} €/mes`;
+                      } else if (trait.endsWith('€') && !trait.includes('/mes')) {
+                        label = `Hasta ${trait}/mes`;
+                      }
+
+                      let icon = null;
+                      let chipClass = '';
+                      if (isBudget) {
+                        icon = <Coins size={14} aria-hidden="true" />;
+                        chipClass = 'chip--budget';
+                      } else if (idx === 0) {
+                        icon = <Sparkles size={14} aria-hidden="true" />;
+                        chipClass = 'chip--lifestyle';
+                      } else {
+                        icon = <Smile size={14} aria-hidden="true" />;
+                        chipClass = 'chip--vibe';
+                      }
+
+                      return (
+                        <span key={trait} className={chipClass}>
+                          {icon}
+                          {label}
+                        </span>
+                      );
+                    })}
                   </div>
                 </div>
               </article>
@@ -123,44 +150,52 @@ export default function DeckSection() {
                 <p>
                   Puedes reiniciar la demo para probar otra vez como se desbloquean las habitaciones.
                 </p>
-                <button className="swipe-btn swipe-btn--save" onClick={restartDemo} type="button">
-                  Reiniciar demo
-                </button>
+                <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '12px' }}>
+                  <button className="swipe-btn swipe-btn--back" onClick={handleBack} type="button">
+                    <ArrowLeft size={18} aria-hidden="true" />
+                    <span>Volver al anterior</span>
+                  </button>
+                  <button className="swipe-btn swipe-btn--save" onClick={restartDemo} type="button">
+                    Reiniciar demo
+                  </button>
+                </div>
               </div>
             )}
 
-            <div className="swipe-actions" data-testid="swipe-actions">
-              <button
-                className="swipe-btn swipe-btn--back"
-                onClick={handleBack}
-                disabled={loading || currentIndex === 0}
-                type="button"
-                data-testid="swipe-back-btn"
-              >
-                <ArrowLeft size={18} aria-hidden="true" />
-                <span>Atras</span>
-              </button>
-              <button
-                className="swipe-btn swipe-btn--reject"
-                onClick={handlePass}
-                disabled={loading || !current}
-                type="button"
-                data-testid="swipe-pass-btn"
-              >
-                <X size={18} aria-hidden="true" />
-                <span>Pasar</span>
-              </button>
-              <button
-                className="swipe-btn swipe-btn--like"
-                onClick={handleLike}
-                disabled={loading || !current}
-                type="button"
-                data-testid="swipe-like-btn"
-              >
-                <Heart size={18} aria-hidden="true" />
-                <span>Me interesa</span>
-              </button>
-            </div>
+            {current && (
+              <div className="swipe-actions" data-testid="swipe-actions">
+                <button
+                  className="swipe-btn swipe-btn--back"
+                  onClick={handleBack}
+                  disabled={loading || currentIndex === 0}
+                  type="button"
+                  data-testid="swipe-back-btn"
+                >
+                  <ArrowLeft size={18} aria-hidden="true" />
+                  <span>Atras</span>
+                </button>
+                <button
+                  className="swipe-btn swipe-btn--reject"
+                  onClick={handlePass}
+                  disabled={loading || !current}
+                  type="button"
+                  data-testid="swipe-pass-btn"
+                >
+                  <X size={18} aria-hidden="true" />
+                  <span>Pasar</span>
+                </button>
+                <button
+                  className="swipe-btn swipe-btn--like"
+                  onClick={handleLike}
+                  disabled={loading || !current}
+                  type="button"
+                  data-testid="swipe-like-btn"
+                >
+                  <Heart size={18} aria-hidden="true" />
+                  <span>Me interesa</span>
+                </button>
+              </div>
+            )}
           </div>
 
           <aside className={`rooms-panel ${roomsUnlocked ? 'is-unlocked' : ''}`} data-testid="rooms-panel">

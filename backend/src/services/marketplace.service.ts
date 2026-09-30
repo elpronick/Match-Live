@@ -30,7 +30,7 @@ export class MarketplaceService {
           tag: p.lifestyle === 'Social y activo' ? 'Extrovertido' : 'Compatibilidad Alta',
           mutualInterest: hasLikedCurrentUser,
           lookingFor: 'Habitación o alquilar juntos',
-          traits: [p.lifestyle || 'Tranquilo', p.budget ? `<= ${p.budget}€` : 'Flexible', 'Amigable'],
+          traits: [p.lifestyle || 'Tranquilo', p.budget ? `Hasta ${p.budget} €/mes` : 'Presupuesto flexible', 'Amigable'],
         };
       });
   }
