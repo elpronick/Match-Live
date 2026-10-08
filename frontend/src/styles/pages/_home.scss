@@ -13,11 +13,10 @@
     content: '';
     position: absolute;
     inset: 0; // Ocupa todo el espacio de .landing
-    background-image: url('../../assets/fondo-match-live.jpg'); // Ruta corregida
+    background-image: url('../../assets/fondo-match-live.png');
     background-repeat: repeat;
-    background-size: 600px; // Ajusta el tamaño del patrón según prefieras
-    opacity: 0.06; // Transparencia alta para que el color de fondo original predomine
-    mix-blend-mode: multiply; // Fusiona la imagen oscura con el fondo claro
+    background-size: 600px; // Tamaño del patrón
+    opacity: 0.05; // Opacidad suave y sutil para que los trazos acompañen elegantemente
     pointer-events: none; // Evita que bloquee clics
   }
 
